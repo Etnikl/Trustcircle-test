@@ -33,7 +33,7 @@ const Input = ({
                     onBlur={()=> {
                         setIsFocused(false);
                     }}
-                    style={{color: COLORS.secondary, flex: 1}} 
+                    style={{color: COLORS.secondary, flex: 1, fontSize: 16}} 
                     {...props}
                 />
                     {password && (
