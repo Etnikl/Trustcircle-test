@@ -17,12 +17,12 @@ const TopNavProgress = ({
 
   return (
     
-    <View style={{flex: 1, flexDirection: 'column'}} >
+    <View style={{flex: 1, flexDirection: 'row'}} >
         <View style={{
         backgroundColor: COLORS.warmew, 
         borderBottomColor: COLORS.lightgrey,
         borderBottomWidth: 1.5,
-        flexDirection: 'row', 
+        flexDirection: 'column', 
         justifyContent: 'center',
         alignItems: 'center', 
         height: 110, 
@@ -30,29 +30,31 @@ const TopNavProgress = ({
         paddingHorizontal: 25,
         position: 'relative'
       }}>
-        {iconLeft && (
-          <View style={{position: 'absolute', left: 25, bottom: 15 }}>
-            <TouchableOpacity onPress={onPressLeft}>
-              <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconLeft} />
-            </TouchableOpacity>
-          </View>
-        )}
-        
-        <Text style={{justifyContent: 'center', color:COLORS.secondary, fontSize: 16, fontWeight: '500'}}>
-          {title}
-        </Text>
-        
-        {iconRight && (
-          <View style={{position: 'absolute', right: 25, bottom: 15 }}>
-            <TouchableOpacity onPress={onPressRight}>
-              <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconRight} />
-            </TouchableOpacity>
-          </View>
-        )}
-      </View>
-      <View style={styles.container}>
-        <View style={[styles.bar, { width: `${percentage}%` }]} />
-        <Text style={styles.label}>{percentage}%</Text>
+        <View style={{flexDirection: 'row'}} >
+          {iconLeft && (
+            <View style={{position: 'absolute', left: 25, bottom: 15 }}>
+              <TouchableOpacity onPress={onPressLeft}>
+                <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconLeft} />
+              </TouchableOpacity>
+            </View>
+          )}
+          
+          <Text style={{justifyContent: 'center', color:COLORS.secondary, fontSize: 16, fontWeight: '500'}}>
+            {title}
+          </Text>
+          
+          {iconRight && (
+            <View style={{position: 'absolute', right: 25, bottom: 15 }}>
+              <TouchableOpacity onPress={onPressRight}>
+                <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconRight} />
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+        <View style={styles.container}>
+          <View style={[styles.bar, { width: `${percentage}%` }]} />
+          <Text style={styles.label}>{percentage}%</Text>
+         </View>
       </View>
     </View>
   );
