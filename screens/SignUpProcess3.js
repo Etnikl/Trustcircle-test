@@ -281,11 +281,7 @@ const SignUp = ({ navigation }) => {
             />
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button 
-              title="Send Verification Email" 
-              // onPress={validate} 
-              onPress={() => navigation.navigate("SignUpProcess1")}
-              />
+            <Button title="Send Verification Email" onPress={validate} />
             <Text
               style={{
                 fontSize: 11,

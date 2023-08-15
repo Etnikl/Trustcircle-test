@@ -1,11 +1,18 @@
-
-import { View, Text, Image, Pressable } from 'react-native'
+import TopNav from '../components/TopNav';
+import { ScrollView, View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../constants/colors';
-import Button from '../components/Button_Old';
+import { Button, NavButton} from '../components/Button';
+import Loader from '../components/Loader';
+import NewOppuScrollVertical from '../components/NewOppuScrollVertical';
+import { oppurtunity } from '../assets/data/data';
+import BottomNav from '../components/BottomNav';
+
 
 const Oppurtunities = ({ navigation }) => {
+
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -13,24 +20,28 @@ const Oppurtunities = ({ navigation }) => {
     >
       <TopNav
         iconLeft="arrow-left"
-        title="Change Password"
+        title="Oppurtunities"
         iconRight={null}
         onPressLeft={() => {
-          navigation.navigate("Login");
-        }}
-        onPressRight={() => {
-          {
-            null;
-          }
+          navigation.navigate("TermsConditions");
         }}
       />
       <SafeAreaView
-        style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
+        style={{ flex: 1, backgroundColor: COLORS.warmew }}
       >
-        <Loader visible={loading} />
-          <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button title="Submit" onPress={()=> navigation.navigate('Login')} />
+        <Loader visible={null} />
+          <View style={{ paddingVertical: 25, paddingHorizontal:25 }}>
+          <NavButton
+              style={{backgroundColor: '#F0F2F4'}}
+              label={"Add your own"}
+              leftSource={require("../assets/images/IconAdd.png")}
+              onPress={() => {
+                console.log("Added new Oppurtiunity");
+              }}
+            />
           </View>
+          <NewOppuScrollVertical items={oppurtunity} onPress={null} />
+          <BottomNav notifications={null} onPress/>
       </SafeAreaView>
     </KeyboardAvoidingView>
   )

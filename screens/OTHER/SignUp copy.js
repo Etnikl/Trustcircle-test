@@ -1,13 +1,11 @@
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react'
-import { View, Text, SafeAreaView, ScrollView, Keyboard, Image, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from 'react-native'
-import RNPickerSelect from 'react-native-picker-select';
-import COLORS from '../constants/colors'
-import Input from '../components/Input'
-import Button from '../components/Button'
-import Loader from '../components/Loader'
-import CustomModal from '../components/CosutmModal';
+import { View, Text, SafeAreaView, ScrollView, Keyboard } from 'react-native'
+import COLORS from '../../constants/colors'
+import Input from '../../components/Input'
+import Button from '../../components/Button'
+import Loader from '../../components/Loader';
 
 const SignUp = ({navigation}) => {
 
@@ -74,8 +72,6 @@ const SignUp = ({navigation}) => {
         setErrors((prevState)=>({...prevState, [input]:errorMessage}) )
     };
 
-    const [selectedValue, setSelectedValue] = React.useState(null);
-
     console.log(inputs);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.warmew}}>
@@ -109,40 +105,40 @@ const SignUp = ({navigation}) => {
                         marginVertical: 30
                     }}>
                     <Input
-                        placeholder="First Name"
-                        error={errors.firstname}
-                        onFocus={()=> {
-                            handeleError(null, "firstname");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"firstname")}
-                    />
-                    <Input
-                        placeholder="Last Name"
-                        error={errors.lastname}
-                        onFocus={()=> {
-                            handeleError(null, "lastname");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"lastname")}
-                    />
-                    <Input
-                        placeholder="Email Address"
+                        placeholder="email address"
+                        iconName="email-outline"
+                        label="Email"
                         error={errors.email}
                         onFocus={()=> {
                             handeleError(null, "email");
                         }}
                         onChangeText = {(text)=>handelOnChange(text,"email")}
                     />
-                    <Input 
+                    <Input
+                        placeholder="Full name address"
+                        iconName="account-outline"
+                        label="Fullname"
+                        error={errors.fullname}
+                        onFocus={()=> {
+                            handeleError(null, "fullname");
+                        }}
+                        onChangeText = {(text)=>handelOnChange(text,"fullname")}
+                    />
+                    <Input
                         keyboardType="numeric"
-                        placeholder="Phone Number"
+                        placeholder="Phone number address"
+                        iconName="phone-outline"
+                        label="Phone"
                         error={errors.phone}
                         onFocus={()=> {
                             handeleError(null, "phone");
                         }}
                         onChangeText = {(number)=>handelOnChange(number,"phone")}
                     />
-                    <Input 
-                        placeholder="Password"
+                    <Input
+                        placeholder="Password Here"
+                        iconName="lock-outline"
+                        label="Password"
                         error={errors.password}
                         onFocus={()=> {
                             handeleError(null, "password");
@@ -150,62 +146,13 @@ const SignUp = ({navigation}) => {
                         password
                         onChangeText = {(text)=>handelOnChange(text,"password")}
                     />
-                    <Input 
-                        placeholder="Confirm Password"
-                        error={errors.confpassword}
-                        onFocus={()=> {
-                            handeleError(null, "confpassword");
-                        }}
-                        password
-                        onChangeText = {(text)=>handelOnChange(text,"confpassword")}
-                    />
-                    {/* <Input
-                        placeholder="Occupation"
-                        error={errors.occupation}
-                        onFocus={()=> {
-                            handeleError(null, "occupation");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
-                    /> */}
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
-                        <RNPickerSelect
-                        require
-                        onValueChange={(value) => setSelectedValue(value)}
-                        placeholder={{ label: 'Occupation', value: null }}
-                        items={[
-                        { label: 'Real Estate Agent', value: 'RealEstateAgent' },
-                        { label: 'Real Estate Broker', value: 'RealEstateBroker' },
-                        ]}
-                        activeOpacity={0.7}
-                        style={{
-                        inputIOS: {
-                            height: 48,
-                            fontSize: 16,
-                            paddingVertical: 12,
-                            paddingHorizontal: 20,
-                            borderWidth: 1.5,
-                            borderColor: COLORS.lightgrey,
-                            borderRadius: 26,
-                            color: COLORS.secondary,
-                        },
-                        }}
-                        />
-                    </View>
-                    <Input
-                        placeholder="Add Additional Language"
-                        error={errors.anotherlanguage}
-                        onFocus={()=> {
-                            handeleError(null, "anotherlanguage");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"anotherlanguage")}
-                    />
-                </View>
-                <Button title="Send Verification Email" onPress={validate} />
+                    <Button title="Create Account" onPress={validate} />
                     <Text
                         onPress={()=> navigation.navigate('Login')}
                     >
                         Login
                     </Text>
+                </View>
         </ScrollView>
     </SafeAreaView>
   )

@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  Dimensions,
   Text,
   TouchableOpacity,
   View,
@@ -19,6 +20,7 @@ import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
+import TopNavProgress from "../components/TopNavProgress";
 
 const SignUp = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -120,6 +122,13 @@ const SignUp = ({ navigation }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <TopNavProgress 
+              iconLeft="arrow-left"
+              title="Progress"
+              onPressLeft={() => {
+                navigation.navigate("Login"); }}
+              progress={0.333} 
+            />
       <SafeAreaView
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
@@ -284,7 +293,7 @@ const SignUp = ({ navigation }) => {
             <Button 
               title="Send Verification Email" 
               // onPress={validate} 
-              onPress={() => navigation.navigate("SignUpProcess1")}
+              onPress={() => navigation.navigate("SignUpProcess2")}
               />
             <Text
               style={{

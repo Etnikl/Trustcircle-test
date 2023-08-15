@@ -1,7 +1,9 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities } from "./screens";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings } from "./screens";
+import ProgressBar from "./components/ProgressBar";
+import TopNavProgress from "./components/TopNav";
 
 const Stack = createNativeStackNavigator()
 export default function App() {
@@ -33,6 +35,34 @@ export default function App() {
           }}
         />
         <Stack.Screen 
+          name="SignUpProcess1"
+          component={SignUpProcess1}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            animationEnabled: true
+          }}
+        />
+        <Stack.Screen 
+          name="SignUpProcess2"
+          component={SignUpProcess2}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: true,
+            animationEnabled: true,
+            headerTitle: () => <TopNavProgress progress={0.666} />,
+          }}
+        />
+        <Stack.Screen 
+          name="SignUpProcess3"
+          component={SignUpProcess3}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: true,
+            headerTitle: () => <TopNavProgress progress={0.9} />,
+          }}
+        />
+        <Stack.Screen 
           name="TermsConditions"
           component={TermsConditions}
           options={{
@@ -58,6 +88,14 @@ export default function App() {
         <Stack.Screen 
           name="Oppurtunities"
           component={Oppurtunities}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
+          }}
+        />
+        <Stack.Screen 
+          name="AppSettings"
+          component={AppSettings}
           options={{
             headerShown: false,
             gestureEnabled: false

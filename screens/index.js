@@ -5,13 +5,21 @@ import TermsConditions from "./TermsConditions"
 import ChangePassword from "./ChangePassword"
 import ForgotPassword from "./ForgotPassword"
 import Oppurtunities from "./Oppurtunities"
+import AppSettings from "./AppSettings"
+import SignUpProcess1 from "./SignUpProcess1"
+import SignUpProcess2 from "./SignUpProcess2"
+import SignUpProcess3 from "./SignUpProcess3"
 
 export {
     Login,
     SignUp,
+    SignUpProcess1,
+    SignUpProcess2,
+    SignUpProcess3,
     Welcome,
     TermsConditions,
     ChangePassword,
     ForgotPassword,
-    Oppurtunities
+    Oppurtunities,
+    AppSettings
 }

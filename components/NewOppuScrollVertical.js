@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground } from "react-native";
 import COLORS from "../constants/colors";
 
-const NewOppuScroll = ({ items , onPress={}=()=>{} }) => {
+const NewOppuScrollVertical = ({ items , onPress={}=()=>{} }) => {
   if (!items) {
     return null; // or return a loading spinner, or some other fallback component
   }
@@ -12,40 +12,12 @@ const NewOppuScroll = ({ items , onPress={}=()=>{} }) => {
   const itemWidth = screenWidth;
 
   return (
-    <SafeAreaView 
-        style={{ 
-            flexDirection: 'column', 
-            height: 180, 
-            }}>
-        <View style={{paddingHorizontal: 25, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between' }} >
-            <Text 
-                style={{
-                    fontSize: 16,
-                    fontWeight: 'bold',
-                    color: COLORS.secondary,
-                }}>
-                New Oppurtunity</Text>
-            <TouchableOpacity onPress={onPress} >
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Text style={styles.notificationCount}>See All</Text>
-                    <ImageBackground
-                        style={{ height: 14, width: 8, marginLeft: 10 }}
-                        source={require("../assets/images/IconArrowGo.png")}
-                    />
-                </View>
-            </TouchableOpacity>
-        </View>
         <ScrollView
-        horizontal={true}
-        style={{
-            flex: 1,
-            flexDirection: "row",
-
-        }}
-        snapToInterval={itemWidth} // Snap to each item
-        snapToAlignment="center" // Align to the start of the scroll view
-        decelerationRate="fast"
-        showsHorizontalScrollIndicator={false}
+          style={{
+              flex: 1,
+              flexDirection: "column",
+          }}
+          showsVerticalScrollIndicator={false}
         >
         {items.map((item, index) => (
             <View
@@ -73,7 +45,6 @@ const NewOppuScroll = ({ items , onPress={}=()=>{} }) => {
             </View>
         ))}
         </ScrollView>
-    </SafeAreaView>
   );
 };
 
@@ -85,7 +56,7 @@ const styles = StyleSheet.create({
     
   },
   itemContainer: {
-    width: screenWidth - 50, // Adjust as needed
+    width: screenWidth - 50, 
     padding: 15,
     overflow: 'hidden',
     height: 140,
@@ -94,9 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1,
     borderColor: COLORS.lightgrey,
-  },
-  lastItem: {
-    marginRight: 25,
+    marginBottom: 15,
   },
   titleRow: {
     flexDirection: "row",
@@ -132,6 +101,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     color: COLORS.lightgrey,
   },
+  lastItem: {
+    marginBottom: 70,
+  },
   Status: {
     color: 'green'
   },
@@ -142,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewOppuScroll;
+export default NewOppuScrollVertical;

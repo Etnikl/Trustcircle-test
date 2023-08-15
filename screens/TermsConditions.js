@@ -13,10 +13,11 @@ import COLORS from "../constants/colors";
 import { NavButton } from "../components/Button";
 import ScrollComponent from "../components/MoneyChart";
 import NewOppuScroll from "../components/NewOppuScroll";
+import { oppurtunity, walletItems } from '../assets/data/data'
 
-const TermsConditions = () => {
+const TermsConditions = ({ navigation }) => {
 
-  const items = [
+  const walletItems = [
     {
       imageSource: require('../assets/images/Money.png'),
       text1: '$185.25',
@@ -43,33 +44,6 @@ const TermsConditions = () => {
     },
   ];
 
-  const oppurtunity = [
-    {
-      title: 'Looking for Commercial Building',
-      time: '10:00 AM',
-      status: 'Active',
-      user: 'User1',
-      state: 'Published',
-      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-    },
-    {
-      title: 'Looking for Commercial Building',
-      time: '11:00 AM',
-      status: 'Inactive',
-      user: 'User2',
-      state: 'Draft',
-      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-    },
-    {
-      title: 'Looking for Commercial Building',
-      time: '11:00 AM',
-      status: 'Inactive',
-      user: 'User2',
-      state: 'Draft',
-      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
-    },
-    // Add more items as needed
-  ];
 
   return (
     <KeyboardAvoidingView
@@ -123,8 +97,8 @@ const TermsConditions = () => {
             }}
           />
         </View>
-        <NewOppuScroll items={oppurtunity}/>
-        <ScrollComponent items={items} />
+        <NewOppuScroll items={oppurtunity}  onPress={() => navigation.navigate("Oppurtunities")} />
+        <ScrollComponent items={walletItems}/>
         <ScrollView style={styles.content}></ScrollView>
         <BottomNav notifications={null} />
       </SafeAreaView>

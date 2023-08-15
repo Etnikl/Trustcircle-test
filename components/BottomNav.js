@@ -2,8 +2,11 @@ import React from "react";
 import { View, TouchableOpacity, Text, ImageBackground, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import COLORS from "../constants/colors";
+import { useNavigation } from '@react-navigation/native';
 
 const BottomNav = ({ notifications }) => {
+
+  const navigation = useNavigation();
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
@@ -22,8 +25,8 @@ const BottomNav = ({ notifications }) => {
   };
 
   const handleIcon3Press = () => {
+    navigation.navigate("TermsConditions");
     console.log("Icon 3 pressed");
-    // Add your logic here
   };
 
   const handleIcon4Press = () => {
@@ -32,8 +35,8 @@ const BottomNav = ({ notifications }) => {
   };
 
   const handleIcon5Press = () => {
+    navigation.navigate("AppSettings");
     console.log("Icon 5 pressed");
-    // Add your logic here
   };
 
   return (

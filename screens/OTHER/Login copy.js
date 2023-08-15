@@ -1,9 +1,9 @@
 import React from 'react'
 import { ImageBackground, SafeAreaView, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import COLORS from '../constants/colors'
+import COLORS from '../../constants/colors'
 import { LinearGradient } from "expo-linear-gradient"
-import InputLogins from '../components/InputLogins'
-import Button from '../components/Button'
+import InputLogins from '../../components/InputLogins'
+import Button from '../../components/Button'
 
 
 const Login = ({navigation}) => {

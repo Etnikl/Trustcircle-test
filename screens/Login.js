@@ -1,6 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import {
+  Alert,
   ImageBackground,
   KeyboardAvoidingView,
   Keyboard,
@@ -39,9 +40,24 @@ const Login = ({ navigation }) => {
       handeleError("Min password length of 6", "password");
     }
     if (valid) {
-      register();
+      loginsetup();
     }
   };
+
+  const loginsetup = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+
+      try {
+        // AsyncStorage.setItem("user", JSON.stringify(inputs));
+        navigation.navigate("TermsConditions");
+      } catch (error) {
+        Alert.alert("Error", "Something went wrong");
+      }
+    }, 3000);
+  };
+
 
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);

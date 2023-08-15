@@ -1,0 +1,51 @@
+export const oppurtunity = [
+    {
+      title: 'Looking for Commercial Building',
+      time: '10:00 AM',
+      status: 'Active',
+      user: 'User1',
+      state: 'Published',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+    {
+      title: 'Looking for Commercial Building',
+      time: '11:00 AM',
+      status: 'Inactive',
+      user: 'User2',
+      state: 'Draft',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+    {
+      title: 'Looking for Commercial Building',
+      time: '11:00 AM',
+      status: 'Inactive',
+      user: 'User2',
+      state: 'Draft',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+    {
+      title: 'Looking for Commercial Building',
+      time: '10:00 AM',
+      status: 'Active',
+      user: 'User1',
+      state: 'Published',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+    {
+      title: 'Looking for Commercial Building',
+      time: '11:00 AM',
+      status: 'Inactive',
+      user: 'User2',
+      state: 'Draft',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+    {
+      title: 'Looking for Commercial Building',
+      time: '11:00 AM',
+      status: 'Inactive',
+      user: 'User2',
+      state: 'Draft',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    },
+  ];
+  
