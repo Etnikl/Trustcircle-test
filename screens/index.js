@@ -4,6 +4,7 @@ import Welcome from "./Welcome";
 import TermsConditions from "./TermsConditions"
 import ChangePassword from "./ChangePassword"
 import ForgotPassword from "./ForgotPassword"
+import Oppurtunities from "./Oppurtunities"
 
 export {
     Login,
@@ -11,5 +12,6 @@ export {
     Welcome,
     TermsConditions,
     ChangePassword,
-    ForgotPassword
+    ForgotPassword,
+    Oppurtunities
 }
