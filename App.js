@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, Welcome, TermsConditions } from "./screens";
+import { Login, SignUp, Welcome, TermsConditions, ChangePassword, ForgotPassword } from "./screens";
 
 const Stack = createNativeStackNavigator()
 export default function App() {
@@ -21,7 +21,8 @@ export default function App() {
           name="Login"
           component={Login}
           options={{
-            headerShown: false
+            headerShown: false,
+            gestureEnabled: false
           }}
         />
         <Stack.Screen 
@@ -36,6 +37,22 @@ export default function App() {
           component={TermsConditions}
           options={{
             headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="ChangePassword"
+          component={ChangePassword}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
+          }}
+        />
+        <Stack.Screen 
+          name="ForgotPassword"
+          component={ForgotPassword}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
           }}
         />
       </Stack.Navigator>

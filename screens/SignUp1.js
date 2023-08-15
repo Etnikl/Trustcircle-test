@@ -2,7 +2,6 @@ import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react'
 import { View, Text, SafeAreaView, ScrollView, Keyboard, Image, KeyboardAvoidingView, StyleSheet, TouchableOpacity } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RNPickerSelect from 'react-native-picker-select';
 import COLORS from '../constants/colors'
 import Input from '../components/Input'
@@ -10,58 +9,41 @@ import Button from '../components/Button'
 import Loader from '../components/Loader'
 import CustomModal from '../components/CosutmModal';
 
-
 const SignUp = ({navigation}) => {
 
     const [inputs, setInputs] = React.useState({
         email: '',
-        firstname: '',
-        lastname: '',
+        fullname: '',
         phone: '',
         password: '',
-        confpassword: '',
     });
 
     const [errors, setErrors] = React.useState({});
     const [loading, setLoading] = React.useState(false);
-
-    const realpassword = inputs.password;
-
     const validate = () => {
 
-        let valid = false;
+        let valid = true;
 
         Keyboard.dismiss();
         if (!inputs.email) {
-            handeleError("Please enter your email address, please.", "email");
+            handeleError("Please input email", "email");
             valid = false;
         }else if(!inputs.email.match(/\S+@\S+\.\S+/)){
             handeleError("Please enter a valid email", "email");
         }
 
-        if(!inputs.firstname) {
-            handeleError("Please enter your first name.", "firstname");
-        }
-
-        if(!inputs.lastname) {
-            handeleError("Please enter your last name.", "lastname");
+        if(!inputs.fullname) {
+            handeleError("Please input fullname", "fullname");
         }
 
         if(!inputs.phone) {
-            handeleError("Please enter your phone number.", "phone");
+            handeleError("Please input phone number", "phone");
         }
 
         if(!inputs.password) {
-            handeleError("Please provide your password.", "password");
+            handeleError("Please input password", "password");
         }else if(inputs.password.length < 6) {
             handeleError("Min password length of 6", "password")
-        }
-
-
-        if(inputs.confpassword.input === inputs.password.input) {
-            handeleError("Please provide your password.", "confpassword");
-        }else{
-            handeleError("Please enter a matching password.", "confpassword");
         }
 
         if(valid) {
@@ -92,77 +74,41 @@ const SignUp = ({navigation}) => {
         setErrors((prevState)=>({...prevState, [input]:errorMessage}) )
     };
 
-    console.log(inputs);
-    console.log(realpassword);
-
     const [selectedValue, setSelectedValue] = React.useState(null);
-    
-    // Modal window
 
-    const [modalVisible, setModalVisible] = React.useState(false);
-    const openModal = () => {
-        setModalVisible(true);
-        };
-        
-        const closeModal = () => {
-            setModalVisible(false);
-        };
-
-    //   end modal window
-    
-
-    return (
-        <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-    <SafeAreaView style={{flex: 1, height: '100svh', backgroundColor: COLORS.warmew}}>
+    console.log(inputs);
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.warmew}}>
         <Loader visible={loading} />
-        <View style={{flexDirection: 'row', height: 150, marginTop: 50, paddingHorizontal: 25, paddingBottom: 20,}}>
-                    <View style={{justifyContent: 'flex-end'}} >
-                        <Text
-                            style={{
-                                color: COLORS.secondary,
-                                fontSize: 36,
-                                fontWeight: 'bold'
-                            }}>
-                        Create {'\n'}
-                        Account
-                        </Text>
-                        <Text
-                            style={{
-                                color: COLORS.secondary,
-                                fontSize: 18,
-                                fontWeight: '500',
-                                marginVertical: 5
-                            }}>
-                        Personal Information
-                        </Text>
-                    </View>
-                    <View style={{flex:1, height: 200,}} >
-                        <Image 
-                        source={require("../assets/images/CreateAccount.png")}
-                        style={{
-                            height: 141, 
-                            width: 110,
-                            alignSelf: 'flex-end',
-                        }}
-                        />
-                    </View>
-                </View>
         <ScrollView 
             contentContainerStyle={{
-                paddingTop: 30,
+                paddingTop: 50,
                 paddingHorizontal: 25,
-                overflow: "hidden",
             }}
             >
+                <Text
+                    style={{
+                        color: COLORS.secondary,
+                        fontSize: 36,
+                        fontWeight: 'bold'
+                    }}>
+                Create {'\n'}
+                Account
+                </Text>
+                <Text
+                    style={{
+                        color: COLORS.secondary,
+                        fontSize: 18,
+                        fontWeight: '500',
+                        marginVertical: 5
+                    }}>
+                Personal Information
+                </Text>
                 <View 
                     style={{
                         marginVertical: 30
                     }}>
                     <Input
-                        returnKeyType="next"
                         placeholder="First Name"
                         error={errors.firstname}
                         onFocus={()=> {
@@ -177,7 +123,6 @@ const SignUp = ({navigation}) => {
                             handeleError(null, "lastname");
                         }}
                         onChangeText = {(text)=>handelOnChange(text,"lastname")}
-                        returnKeyType="next"
                     />
                     <Input
                         placeholder="Email Address"
@@ -186,7 +131,6 @@ const SignUp = ({navigation}) => {
                             handeleError(null, "email");
                         }}
                         onChangeText = {(text)=>handelOnChange(text,"email")}
-                        returnKeyType="next"
                     />
                     <Input 
                         keyboardType="numeric"
@@ -256,42 +200,15 @@ const SignUp = ({navigation}) => {
                         onChangeText = {(text)=>handelOnChange(text,"anotherlanguage")}
                     />
                 </View>
-                <View style={{paddingTop:20, paddingBottom: 30, paddingHorizontal: 25}} >
-                    <Button title="Send Verification Email" onPress={validate} />
-                        <Text style={{
-                            fontSize: 11,
-                            color: COLORS.secondary,
-                            textAlign: 'center',
-                            paddingTop: 10
-                        }}
-                            // onPress={()=> navigation.navigate('Login')}
-                        >
-                            We need some more informations.
-                        </Text>
-                </View>
-                <View style={styles.container}>
-                <TouchableOpacity onPress={openModal}>
-                    <Text style={styles.openModalButton}>Open Modal</Text>
-                </TouchableOpacity>
-
-                <CustomModal isVisible={modalVisible} onClose={closeModal} />
-                </View>
+                <Button title="Send Verification Email" onPress={validate} />
+                    <Text
+                        onPress={()=> navigation.navigate('Login')}
+                    >
+                        Login
+                    </Text>
         </ScrollView>
     </SafeAreaView>
-    </KeyboardAvoidingView>
-    )
-    }
-
-    const styles = StyleSheet.create({
-        container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        },
-        openModalButton: {
-        fontSize: 20,
-        color: 'blue',
-        },
-    });
+  )
+}
 
 export default SignUp
