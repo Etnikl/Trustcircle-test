@@ -15,19 +15,19 @@ import {
 } from "react-native";
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RNPickerSelect from "react-native-picker-select";
-import { ButtonPrimary, Button } from "../components/Button";
+import { ButtonLicense, Button } from "../components/Button";
 import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
 import TopNavProgress from "../components/TopNavProgress";
 
-const SignUp = ({ navigation }) => {
+const SignUpProcess1 = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
-    email: "",
-    firstname: "",
-    lastname: "",
-    phone: "",
+    brokerName: "",
+    brokerageName: "",
+    companyName: "",
+    brokerPhone: "",
     password: "",
     confpassword: "",
   });
@@ -41,23 +41,23 @@ const SignUp = ({ navigation }) => {
     let valid = true;
 
     Keyboard.dismiss();
-    if (!inputs.email) {
-      handeleError("Please enter your email address, please.", "email");
+    if (!inputs.brokerName) {
+      handeleError("Please enter your brokerName address, please.", "brokerName");
       valid = false;
-    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handeleError("Please enter a valid email", "email");
+    } else if (!inputs.brokerName.match(/\S+@\S+\.\S+/)) {
+      handeleError("Please enter a valid brokerName", "brokerName");
     }
 
-    if (!inputs.firstname) {
-      handeleError("Please enter your first name.", "firstname");
+    if (!inputs.brokerageName) {
+      handeleError("Please enter your first name.", "brokerageName");
     }
 
-    if (!inputs.lastname) {
-      handeleError("Please enter your last name.", "lastname");
+    if (!inputs.companyName) {
+      handeleError("Please enter your last name.", "companyName");
     }
 
-    if (!inputs.phone) {
-      handeleError("Please enter your phone number.", "phone");
+    if (!inputs.brokerPhone) {
+      handeleError("Please enter your brokerPhone number.", "brokerPhone");
     }
 
     if (!inputs.password) {
@@ -137,7 +137,7 @@ const SignUp = ({ navigation }) => {
           style={{
             flexDirection: "row",
             height: 150,
-            marginTop: 50,
+            marginTop: 20,
             paddingHorizontal: 25,
             paddingBottom: 20,
           }}
@@ -161,94 +161,78 @@ const SignUp = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Personal Information
+              Company Information
             </Text>
           </View>
           <View style={{ flex: 1, height: 200 }}>
             <Image
-              source={require("../assets/images/CreateAccount.png")}
+              source={require("../assets/images/CreateAccountSetup.png")}
               style={{
                 height: 141,
                 width: 110,
                 alignSelf: "flex-end",
               }}
+              resizeMode= 'repeat'
             />
           </View>
         </View>
         <ScrollView
           contentContainerStyle={{
-            paddingTop: 30,
+            paddingTop: 10,
             paddingHorizontal: 25,
             overflow: "hidden",
           }}
         >
           <View
             style={{
-              marginVertical: 30,
+              marginVertical: 10,
             }}
           >
             <Input
               returnKeyType="next"
-              placeholder="First Name"
-              error={errors.firstname}
+              placeholder="Your Brokerage Name"
+              error={errors.brokerageName}
               onFocus={() => {
-                handeleError(null, "firstname");
+                handeleError(null, "brokerageName");
               }}
-              onChangeText={(text) => handelOnChange(text, "firstname")}
+              onChangeText={(text) => handelOnChange(text, "brokerageName")}
             />
             <Input
-              placeholder="Last Name"
-              error={errors.lastname}
+              placeholder="Your Company Name"
+              error={errors.companyName}
               onFocus={() => {
-                handeleError(null, "lastname");
+                handeleError(null, "companyName");
               }}
-              onChangeText={(text) => handelOnChange(text, "lastname")}
+              onChangeText={(text) => handelOnChange(text, "companyName")}
               returnKeyType="next"
             />
             <Input
-              placeholder="Email Address"
-              error={errors.email}
+              placeholder="Your Broker Name"
+              error={errors.brokerName}
               onFocus={() => {
-                handeleError(null, "email");
+                handeleError(null, "brokerName");
               }}
-              onChangeText={(text) => handelOnChange(text, "email")}
+              onChangeText={(text) => handelOnChange(text, "brokerName")}
+              returnKeyType="next"
+            />
+            <Input
+              placeholder="Your Broker Email Address"
+              error={errors.brokerEmail}
+              onFocus={() => {
+                handeleError(null, "brokerEmail");
+              }}
+              onChangeText={(text) => handelOnChange(text, "brokerEmail")}
               returnKeyType="next"
             />
             <Input
               keyboardType="numeric"
-              placeholder="Phone Number"
-              error={errors.phone}
+              placeholder="Your Broker Phone Number"
+              error={errors.brokerPhone}
               onFocus={() => {
-                handeleError(null, "phone");
+                handeleError(null, "brokerPhone");
               }}
-              onChangeText={(number) => handelOnChange(number, "phone")}
+              onChangeText={(number) => handelOnChange(number, "brokerPhone")}
             />
-            <Input
-              placeholder="Password"
-              error={errors.password}
-              onFocus={() => {
-                handeleError(null, "password");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "password")}
-            />
-            <Input
-              placeholder="Confirm Password"
-              error={errors.confpassword}
-              onFocus={() => {
-                handeleError(null, "confpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "confpassword")}
-            />
-            {/* <Input
-                        placeholder="Occupation"
-                        error={errors.occupation}
-                        onFocus={()=> {
-                            handeleError(null, "occupation");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
-                    /> */}
             <View
               style={{
                 flex: 1,
@@ -260,10 +244,10 @@ const SignUp = ({ navigation }) => {
               <RNPickerSelect
                 require
                 onValueChange={(value) => setSelectedValue(value)}
-                placeholder={{ label: "Occupation", value: null }}
+                placeholder={{ label: "State Licenced In", value: null }}
                 items={[
-                    { label: "Real Estate Agent", value: "RealEstateAgent" },
-                    { label: "Real Estate Broker", value: "RealEstateBroker" },
+                    { label: "AK - Alaska", value: "Alaska" },
+                    { label: "MI - Michigan", value: "Michigan" },
                 ]}
                 activeOpacity={0.7}
                 style={{
@@ -281,17 +265,26 @@ const SignUp = ({ navigation }) => {
               />
             </View>
             <Input
-              placeholder="Add Additional Language"
-              error={errors.anotherlanguage}
-              onFocus={() => {
-                handeleError(null, "anotherlanguage");
+              placeholder="Agent ID"
+              error={errors.agentId}
+              onFocus={()=> {
+                handeleError(null, "agentId");
               }}
-              onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
+              onChangeText = {(text)=>handelOnChange(text,"agentId")}
+            /> 
+            <Input
+              placeholder="Borker ID"
+              error={errors.brokerId}
+              onFocus={() => {
+                handeleError(null, "brokerId");
+              }}
+              onChangeText={(text) => handelOnChange(text, "brokerId")}
             />
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
+            <ButtonLicense title="Add Additional State Licenses" onPress={() => navigation.navigate("SignUp")} />  
             <Button 
-              title="Send Verification Email" 
+              title="Continue" 
               // onPress={validate} 
               onPress={() => navigation.navigate("SignUpProcess2")}
               />
@@ -302,17 +295,9 @@ const SignUp = ({ navigation }) => {
                 textAlign: "center",
                 paddingTop: 10,
               }}
-              // onPress={()=> navigation.navigate('Login')}
             >
               We need some more informations.
             </Text>
-          </View>
-          <View style={styles.container}>
-            <TouchableOpacity onPress={openModal}>
-              <Text style={styles.openModalButton}>Open Modal</Text>
-            </TouchableOpacity>
-
-            <CustomModal isVisible={modalVisible} onClose={closeModal} />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -320,16 +305,4 @@ const SignUp = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  openModalButton: {
-    fontSize: 20,
-    color: "blue",
-  },
-});
-
-export default SignUp;
+export default SignUpProcess1;

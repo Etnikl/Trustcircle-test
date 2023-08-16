@@ -17,43 +17,33 @@ const TopNavProgress = ({
 
   return (
     
-    <View style={{flex: 1, flexDirection: 'row'}} >
+    <View style={{flexDirection: 'row'}} >
         <View style={{
         backgroundColor: COLORS.warmew, 
-        borderBottomColor: COLORS.lightgrey,
-        borderBottomWidth: 1.5,
         flexDirection: 'column', 
         justifyContent: 'center',
-        alignItems: 'center', 
-        height: 110, 
+        alignItems: 'flex-start', 
+        height: 140, 
         paddingTop: 60, 
         paddingHorizontal: 25,
         position: 'relative'
       }}>
         <View style={{flexDirection: 'row'}} >
           {iconLeft && (
-            <View style={{position: 'absolute', left: 25, bottom: 15 }}>
+            <View style={{paddingBottom: 15,}}>
               <TouchableOpacity onPress={onPressLeft}>
                 <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconLeft} />
               </TouchableOpacity>
             </View>
           )}
-          
-          <Text style={{justifyContent: 'center', color:COLORS.secondary, fontSize: 16, fontWeight: '500'}}>
+        </View>
+        <View>
+          <Text style={{justifyContent: 'center', color:COLORS.secondary, fontSize: 12, fontWeight: '400'}}>
             {title}
           </Text>
-          
-          {iconRight && (
-            <View style={{position: 'absolute', right: 25, bottom: 15 }}>
-              <TouchableOpacity onPress={onPressRight}>
-                <Icon style={{fontSize:22, color: COLORS.secondary}} name={iconRight} />
-              </TouchableOpacity>
-            </View>
-          )}
         </View>
         <View style={styles.container}>
           <View style={[styles.bar, { width: `${percentage}%` }]} />
-          <Text style={styles.label}>{percentage}%</Text>
          </View>
       </View>
     </View>
@@ -67,15 +57,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 20,
+    height: 5,
     width: screenWidth - 50,
-    backgroundColor: 'lightgray',
-    borderRadius: 10,
+    backgroundColor: COLORS.buttonGrey,
+    marginTop: 5,
   },
   bar: {
     height: '100%',
-    backgroundColor: 'blue',
-    borderRadius: 10,
+    backgroundColor: COLORS.primary,
   },
   label: {
     position: 'absolute',

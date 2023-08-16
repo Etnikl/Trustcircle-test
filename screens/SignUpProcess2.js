@@ -12,20 +12,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RNPickerSelect from "react-native-picker-select";
 import { ButtonPrimary, Button } from "../components/Button";
-import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
+import TopNavProgress from "../components/TopNavProgress";
 
-const SignUp = ({ navigation }) => {
+const SignUpProcess2 = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
     email: "",
-    firstname: "",
-    lastname: "",
-    phone: "",
+    specifyAddress: "",
+    website: "",
+    companyPhone: "",
     password: "",
     confpassword: "",
   });
@@ -46,16 +45,16 @@ const SignUp = ({ navigation }) => {
       handeleError("Please enter a valid email", "email");
     }
 
-    if (!inputs.firstname) {
-      handeleError("Please enter your first name.", "firstname");
+    if (!inputs.specifyAddress) {
+      handeleError("Please enter your first name.", "specifyAddress");
     }
 
-    if (!inputs.lastname) {
-      handeleError("Please enter your last name.", "lastname");
+    if (!inputs.website) {
+      handeleError("Please enter your last name.", "website");
     }
 
-    if (!inputs.phone) {
-      handeleError("Please enter your phone number.", "phone");
+    if (!inputs.companyPhone) {
+      handeleError("Please enter your companyPhone number.", "companyPhone");
     }
 
     if (!inputs.password) {
@@ -120,6 +119,13 @@ const SignUp = ({ navigation }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <TopNavProgress 
+              iconLeft="arrow-left"
+              title="Progress"
+              onPressLeft={() => {
+                navigation.navigate("Login"); }}
+              progress={0.6} 
+            />
       <SafeAreaView
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
@@ -128,7 +134,7 @@ const SignUp = ({ navigation }) => {
           style={{
             flexDirection: "row",
             height: 150,
-            marginTop: 50,
+            marginTop: 20,
             paddingHorizontal: 25,
             paddingBottom: 20,
           }}
@@ -152,138 +158,69 @@ const SignUp = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Personal Information
+              Company Address
             </Text>
           </View>
           <View style={{ flex: 1, height: 200 }}>
             <Image
-              source={require("../assets/images/CreateAccount.png")}
+              source={require("../assets/images/CreateAccountSetup.png")}
               style={{
                 height: 141,
                 width: 110,
                 alignSelf: "flex-end",
               }}
+              resizeMode= 'repeat'
             />
           </View>
         </View>
         <ScrollView
           contentContainerStyle={{
-            paddingTop: 30,
+            paddingTop: 10,
             paddingHorizontal: 25,
             overflow: "hidden",
+            flexDirection: 'column',
+            flex: 1,
+            justifyContent: 'flex-end',
+            justifyItems: 'flex-end',
           }}
         >
           <View
             style={{
-              marginVertical: 30,
+              marginVertical: 10,
             }}
           >
             <Input
               returnKeyType="next"
-              placeholder="First Name"
-              error={errors.firstname}
+              placeholder="Specify Address"
+              error={errors.specifyAddress}
               onFocus={() => {
-                handeleError(null, "firstname");
+                handeleError(null, "specifyAddress");
               }}
-              onChangeText={(text) => handelOnChange(text, "firstname")}
+              onChangeText={(text) => handelOnChange(text, "specifyAddress")}
             />
             <Input
-              placeholder="Last Name"
-              error={errors.lastname}
+              placeholder="Website"
+              error={errors.website}
               onFocus={() => {
-                handeleError(null, "lastname");
+                handeleError(null, "website");
               }}
-              onChangeText={(text) => handelOnChange(text, "lastname")}
-              returnKeyType="next"
-            />
-            <Input
-              placeholder="Email Address"
-              error={errors.email}
-              onFocus={() => {
-                handeleError(null, "email");
-              }}
-              onChangeText={(text) => handelOnChange(text, "email")}
+              onChangeText={(text) => handelOnChange(text, "website")}
               returnKeyType="next"
             />
             <Input
               keyboardType="numeric"
-              placeholder="Phone Number"
-              error={errors.phone}
+              placeholder="Company Phone Number"
+              error={errors.companyPhone}
               onFocus={() => {
-                handeleError(null, "phone");
+                handeleError(null, "companyPhone");
               }}
-              onChangeText={(number) => handelOnChange(number, "phone")}
-            />
-            <Input
-              placeholder="Password"
-              error={errors.password}
-              onFocus={() => {
-                handeleError(null, "password");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "password")}
-            />
-            <Input
-              placeholder="Confirm Password"
-              error={errors.confpassword}
-              onFocus={() => {
-                handeleError(null, "confpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "confpassword")}
-            />
-            {/* <Input
-                        placeholder="Occupation"
-                        error={errors.occupation}
-                        onFocus={()=> {
-                            handeleError(null, "occupation");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
-                    /> */}
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: 6,
-                }}
-            >
-              <RNPickerSelect
-                require
-                onValueChange={(value) => setSelectedValue(value)}
-                placeholder={{ label: "Occupation", value: null }}
-                items={[
-                    { label: "Real Estate Agent", value: "RealEstateAgent" },
-                    { label: "Real Estate Broker", value: "RealEstateBroker" },
-                ]}
-                activeOpacity={0.7}
-                style={{
-                  inputIOS: {
-                    height: 48,
-                    fontSize: 16,
-                    paddingVertical: 12,
-                    paddingHorizontal: 20,
-                    borderWidth: 1.5,
-                    borderColor: COLORS.lightgrey,
-                    borderRadius: 26,
-                    color: COLORS.secondary,
-                  },
-                }}
-              />
-            </View>
-            <Input
-              placeholder="Add Additional Language"
-              error={errors.anotherlanguage}
-              onFocus={() => {
-                handeleError(null, "anotherlanguage");
-              }}
-              onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
+              onChangeText={(number) => handelOnChange(number, "companyPhone")}
             />
           </View>
-          <View style={{ paddingTop: 20, paddingBottom: 30 }}>
+          <View style={{flex: 1, paddingTop: 20, paddingBottom: 30 }}>
             <Button 
-              title="Send Verification Email" 
-              onPress={validate}
+              title="Continue" 
+              // onPress={validate}
               onPress={() => navigation.navigate("SignUpProcess3")}
               />
             <Text
@@ -298,29 +235,10 @@ const SignUp = ({ navigation }) => {
               We need some more informations.
             </Text>
           </View>
-          <View style={styles.container}>
-            <TouchableOpacity onPress={openModal}>
-              <Text style={styles.openModalButton}>Open Modal</Text>
-            </TouchableOpacity>
-
-            <CustomModal isVisible={modalVisible} onClose={closeModal} />
-          </View>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  openModalButton: {
-    fontSize: 20,
-    color: "blue",
-  },
-});
-
-export default SignUp;
+export default SignUpProcess2;

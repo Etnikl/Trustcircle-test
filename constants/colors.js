@@ -12,6 +12,7 @@ const COLORS = {
     textcolor: '#DAE1ED',
     errorcolor: '#FC5A5B',
     homeNav: '#F2F4F6',
+    btnLicense: '#65788D',
 }
 
 export default COLORS;

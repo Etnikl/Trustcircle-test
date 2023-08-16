@@ -48,9 +48,8 @@ export default function App() {
           component={SignUpProcess2}
           options={{
             headerBackTitleVisible: false,
-            headerShown: true,
-            animationEnabled: true,
-            headerTitle: () => <TopNavProgress progress={0.666} />,
+            headerShown: false,
+            animationEnabled: true
           }}
         />
         <Stack.Screen 
@@ -58,8 +57,8 @@ export default function App() {
           component={SignUpProcess3}
           options={{
             headerBackTitleVisible: false,
-            headerShown: true,
-            headerTitle: () => <TopNavProgress progress={0.9} />,
+            headerShown: false,
+            animationEnabled: true
           }}
         />
         <Stack.Screen 

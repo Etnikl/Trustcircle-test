@@ -14,16 +14,17 @@ import {
 } from "react-native";
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RNPickerSelect from "react-native-picker-select";
-import { ButtonPrimary, Button } from "../components/Button";
+import { ButtonPrimary, Button, ButtonLicense } from "../components/Button";
 import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
+import TopNavProgress from "../components/TopNavProgress";
 
-const SignUp = ({ navigation }) => {
+const SignUpProcess3 = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
     email: "",
-    firstname: "",
+    yourGCI: "",
     lastname: "",
     phone: "",
     password: "",
@@ -46,8 +47,8 @@ const SignUp = ({ navigation }) => {
       handeleError("Please enter a valid email", "email");
     }
 
-    if (!inputs.firstname) {
-      handeleError("Please enter your first name.", "firstname");
+    if (!inputs.yourGCI) {
+      handeleError("Please enter your first name.", "yourGCI");
     }
 
     if (!inputs.lastname) {
@@ -120,6 +121,13 @@ const SignUp = ({ navigation }) => {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
+      <TopNavProgress 
+              iconLeft="arrow-left"
+              title="Progress"
+              onPressLeft={() => {
+                navigation.navigate("Login"); }}
+              progress={0.9} 
+            />
       <SafeAreaView
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
@@ -128,7 +136,7 @@ const SignUp = ({ navigation }) => {
           style={{
             flexDirection: "row",
             height: 150,
-            marginTop: 50,
+            marginTop: 20,
             paddingHorizontal: 25,
             paddingBottom: 20,
           }}
@@ -152,94 +160,42 @@ const SignUp = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Personal Information
+              Buissness Details
             </Text>
           </View>
           <View style={{ flex: 1, height: 200 }}>
             <Image
-              source={require("../assets/images/CreateAccount.png")}
+              source={require("../assets/images/CreateAccountSetup.png")}
               style={{
                 height: 141,
                 width: 110,
                 alignSelf: "flex-end",
               }}
+              resizeMode= 'repeat'
             />
           </View>
         </View>
         <ScrollView
           contentContainerStyle={{
-            paddingTop: 30,
+            paddingTop: 10,
             paddingHorizontal: 25,
             overflow: "hidden",
           }}
         >
           <View
             style={{
-              marginVertical: 30,
+              marginVertical: 10,
             }}
           >
             <Input
               returnKeyType="next"
-              placeholder="First Name"
-              error={errors.firstname}
+              placeholder="Your GCI"
+              error={errors.yourGCI}
               onFocus={() => {
-                handeleError(null, "firstname");
+                handeleError(null, "yourGCI");
               }}
-              onChangeText={(text) => handelOnChange(text, "firstname")}
+              onChangeText={(text) => handelOnChange(text, "yourGCI")}
             />
-            <Input
-              placeholder="Last Name"
-              error={errors.lastname}
-              onFocus={() => {
-                handeleError(null, "lastname");
-              }}
-              onChangeText={(text) => handelOnChange(text, "lastname")}
-              returnKeyType="next"
-            />
-            <Input
-              placeholder="Email Address"
-              error={errors.email}
-              onFocus={() => {
-                handeleError(null, "email");
-              }}
-              onChangeText={(text) => handelOnChange(text, "email")}
-              returnKeyType="next"
-            />
-            <Input
-              keyboardType="numeric"
-              placeholder="Phone Number"
-              error={errors.phone}
-              onFocus={() => {
-                handeleError(null, "phone");
-              }}
-              onChangeText={(number) => handelOnChange(number, "phone")}
-            />
-            <Input
-              placeholder="Password"
-              error={errors.password}
-              onFocus={() => {
-                handeleError(null, "password");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "password")}
-            />
-            <Input
-              placeholder="Confirm Password"
-              error={errors.confpassword}
-              onFocus={() => {
-                handeleError(null, "confpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "confpassword")}
-            />
-            {/* <Input
-                        placeholder="Occupation"
-                        error={errors.occupation}
-                        onFocus={()=> {
-                            handeleError(null, "occupation");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
-                    /> */}
             <View
               style={{
                 flex: 1,
@@ -251,10 +207,10 @@ const SignUp = ({ navigation }) => {
               <RNPickerSelect
                 require
                 onValueChange={(value) => setSelectedValue(value)}
-                placeholder={{ label: "Occupation", value: null }}
+                placeholder={{ label: "State Licenced In", value: null }}
                 items={[
-                    { label: "Real Estate Agent", value: "RealEstateAgent" },
-                    { label: "Real Estate Broker", value: "RealEstateBroker" },
+                    { label: "AK - Alaska", value: "Alaska" },
+                    { label: "MI - Michigan", value: "Michigan" },
                 ]}
                 activeOpacity={0.7}
                 style={{
@@ -271,17 +227,31 @@ const SignUp = ({ navigation }) => {
                 }}
               />
             </View>
+            <Text style={{
+              fontSize: 14,
+              fontWeight: 'bold',
+              color: COLORS.secondary,
+              marginLeft: 10,
+              marginBottom: 5,
+            }} >Define Your Territory</Text>
             <Input
-              placeholder="Add Additional Language"
-              error={errors.anotherlanguage}
+              placeholder="City, County or Zip Code (MULITIPLE)"
+              error={errors.defineTerritory}
               onFocus={() => {
-                handeleError(null, "anotherlanguage");
+                handeleError(null, "defineTerritory");
               }}
-              onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
+              onChangeText={(text) => handelOnChange(text, "defineTerritory")}
             />
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button title="Send Verification Email" onPress={validate} />
+            <View style={{flexDirection: 'row', gap: 5 , flexWrap: 'nowrap', justifyContent:'center'}} >
+              <View style={{width: '50%'}} >
+                <ButtonLicense title="Edit" onPress={() => navigation.navigate("SignUpProcess1")} />
+              </View>
+              <View style={{width: '50%'}} >
+                <Button title="Confirm" onPress={() => navigation.navigate("TermsConditions")} />
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 11,
@@ -294,29 +264,11 @@ const SignUp = ({ navigation }) => {
               We need some more informations.
             </Text>
           </View>
-          <View style={styles.container}>
-            <TouchableOpacity onPress={openModal}>
-              <Text style={styles.openModalButton}>Open Modal</Text>
-            </TouchableOpacity>
-
-            <CustomModal isVisible={modalVisible} onClose={closeModal} />
-          </View>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  openModalButton: {
-    fontSize: 20,
-    color: "blue",
-  },
-});
 
-export default SignUp;
+export default SignUpProcess3;

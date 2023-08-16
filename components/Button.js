@@ -76,6 +76,32 @@ const Button = ({title, onPress={}=()=>{}}) => {
         </TouchableOpacity>
     );
 }
+const ButtonLicense = ({title, onPress={}=()=>{}}) => {
+  return (
+      <TouchableOpacity 
+          activeOpacity={0.7}
+          onPress={onPress}
+          style={{
+              height: 48,
+              width: "100%",
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 26,
+              borderWidth: 1.5,
+              borderColor: COLORS.lightgrey,
+              marginBottom: 6
+          }}>
+          <Text 
+              style={{
+                  color: COLORS.btnLicense,
+                  fontWeight: 'bold',
+                  fontSize: 18,
+              }}>
+              {title}
+          </Text>
+      </TouchableOpacity>
+  );
+}
 const IconButton = ({ source, onPress, height = 40, width = 40 }) => {
     return (
       <View style={{ flex: 1, alignItems: 'center' }}>
@@ -154,4 +180,4 @@ const NavButton = ({
   
   
 
-export { ButtonPrimary, ButtonSecondary, Button, IconButton, NavButton};
+export { ButtonPrimary, ButtonSecondary, Button, IconButton, NavButton, ButtonLicense};

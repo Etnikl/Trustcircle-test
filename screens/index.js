@@ -13,13 +13,13 @@ import SignUpProcess3 from "./SignUpProcess3"
 export {
     Login,
     SignUp,
-    SignUpProcess1,
-    SignUpProcess2,
-    SignUpProcess3,
     Welcome,
     TermsConditions,
     ChangePassword,
     ForgotPassword,
     Oppurtunities,
-    AppSettings
+    AppSettings,
+    SignUpProcess1,
+    SignUpProcess2,
+    SignUpProcess3,
 }
