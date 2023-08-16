@@ -9,8 +9,11 @@ import AppSettings from "./AppSettings"
 import SignUpProcess1 from "./SignUpProcess1"
 import SignUpProcess2 from "./SignUpProcess2"
 import SignUpProcess3 from "./SignUpProcess3"
+import Home from "./Home";
+import SearchScreen from "./SearchScreen";
 
 export {
+    Home,
     Login,
     SignUp,
     Welcome,
@@ -22,4 +25,5 @@ export {
     SignUpProcess1,
     SignUpProcess2,
     SignUpProcess3,
+    SearchScreen,
 }

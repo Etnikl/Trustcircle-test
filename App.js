@@ -1,22 +1,29 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings } from "./screens";
-import ProgressBar from "./components/ProgressBar";
-import TopNavProgress from "./components/TopNav";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen } from "./screens";
+
 
 const Stack = createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Welcome"
+        initialRouteName="Login"
       >
         <Stack.Screen 
           name="Welcome"
           component={Welcome}
           options={{
             headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="Home"
+          component={Home}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
           }}
         />
         <Stack.Screen 
@@ -87,6 +94,14 @@ export default function App() {
         <Stack.Screen 
           name="Oppurtunities"
           component={Oppurtunities}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
+          }}
+        />
+        <Stack.Screen 
+          name="SearchScreen"
+          component={SearchScreen}
           options={{
             headerShown: false,
             gestureEnabled: false

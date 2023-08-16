@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState } from "react";
 import {
   Alert,
   Image,
@@ -19,6 +19,7 @@ import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
+import LanguagePicker from '../components/LanguagePicker'
 
 const SignUp = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -29,6 +30,30 @@ const SignUp = ({ navigation }) => {
     password: "",
     confpassword: "",
   });
+
+  //api
+
+  // const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
+  // const [pickerValue, setPickerValue] = useState(null);
+
+  // const languagePickerItems = languages.map((language, index) => ({
+  //   label: language.name,
+  //   value: language.name,
+  //   key: index+1,
+  // }));
+
+  // const addLanguage = (value) => {
+  //   if (value && !selectedLanguages.includes(value)) {
+  //     setSelectedLanguages(prev => [...prev, value]);
+  //   }
+  //   setPickerValue(null);
+  // };
+
+  // const removeLanguage = (value) => {
+  //   setSelectedLanguages(prev => prev.filter(lang => lang !== value));
+  // };
+
+  // api
 
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
@@ -101,6 +126,8 @@ const SignUp = ({ navigation }) => {
   console.log(realpassword);
 
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const [selectedLanguage, setSelectedLanguage] = React.useState(null);
+
 
   // Modal window
 
@@ -232,14 +259,6 @@ const SignUp = ({ navigation }) => {
               password
               onChangeText={(text) => handelOnChange(text, "confpassword")}
             />
-            {/* <Input
-                        placeholder="Occupation"
-                        error={errors.occupation}
-                        onFocus={()=> {
-                            handeleError(null, "occupation");
-                        }}
-                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
-                    /> */}
             <View
               style={{
                 flex: 1,
@@ -271,15 +290,16 @@ const SignUp = ({ navigation }) => {
                 }}
               />
             </View>
-            <Input
+            <LanguagePicker />
+            </View>
+            {/* <Input
               placeholder="Add Additional Language"
               error={errors.anotherlanguage}
               onFocus={() => {
                 handeleError(null, "anotherlanguage");
               }}
               onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
-            />
-          </View>
+            /> */}
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
             <Button 
               title="Send Verification Email" 

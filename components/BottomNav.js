@@ -16,16 +16,16 @@ const BottomNav = ({ notifications }) => {
 
   const handleIcon1Press = () => {
     console.log("Icon 1 pressed");
-    // Add your logic here
+    navigation.navigate("Home");
   };
 
   const handleIcon2Press = () => {
     console.log("Icon 2 pressed");
-    // Add your logic here
+    navigation.navigate("SearchScreen");
   };
 
   const handleIcon3Press = () => {
-    navigation.navigate("TermsConditions");
+    navigation.navigate("Home");
     console.log("Icon 3 pressed");
   };
 

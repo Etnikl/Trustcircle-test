@@ -8,42 +8,34 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Dimensions,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RNPickerSelect from "react-native-picker-select";
-import { ButtonLicense, Button } from "../components/Button";
+import { ButtonPrimary, Button } from "../components/Button";
+import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
 import Loader from "../components/Loader";
 import COLORS from "../constants/colors";
-import TopNavProgress from "../components/TopNavProgress";
-import states from '../assets/JSON/states.json'
+import languages from '../assets/JSON/languages.json'
 
-
-const SignUpProcess1 = ({ navigation }) => {
+const SignUp = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
-    brokerName: "",
-    brokerageName: "",
-    companyName: "",
-    brokerPhone: "",
+    email: "",
+    firstname: "",
+    lastname: "",
+    phone: "",
     password: "",
     confpassword: "",
   });
 
-  // api
-
-  const pickerItems = states.map((state, index) => ({
-    label: `${state.abbreviation} - ${state.name}`,
-    value: state.name,
+  const languagePickerItems = languages.map((language, index) => ({
+    label: language.name,
+    value: language.code,
     key: index+1,
   }));
-  
-  console.log(states);
-  
-  
 
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
@@ -54,23 +46,23 @@ const SignUpProcess1 = ({ navigation }) => {
     let valid = true;
 
     Keyboard.dismiss();
-    if (!inputs.brokerName) {
-      handeleError("Please enter your brokerName address, please.", "brokerName");
+    if (!inputs.email) {
+      handeleError("Please enter your email address, please.", "email");
       valid = false;
-    } else if (!inputs.brokerName.match(/\S+@\S+\.\S+/)) {
-      handeleError("Please enter a valid brokerName", "brokerName");
+    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
+      handeleError("Please enter a valid email", "email");
     }
 
-    if (!inputs.brokerageName) {
-      handeleError("Please enter your first name.", "brokerageName");
+    if (!inputs.firstname) {
+      handeleError("Please enter your first name.", "firstname");
     }
 
-    if (!inputs.companyName) {
-      handeleError("Please enter your last name.", "companyName");
+    if (!inputs.lastname) {
+      handeleError("Please enter your last name.", "lastname");
     }
 
-    if (!inputs.brokerPhone) {
-      handeleError("Please enter your brokerPhone number.", "brokerPhone");
+    if (!inputs.phone) {
+      handeleError("Please enter your phone number.", "phone");
     }
 
     if (!inputs.password) {
@@ -116,19 +108,27 @@ const SignUpProcess1 = ({ navigation }) => {
   console.log(realpassword);
 
   const [selectedValue, setSelectedValue] = React.useState(null);
+  const [selectedLanguage, setSelectedLanguage] = React.useState(null);
+
+
+  // Modal window
+
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  //   end modal window
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <TopNavProgress 
-              iconLeft="arrow-left"
-              title="Progress"
-              onPressLeft={() => {
-                navigation.navigate("Login"); }}
-              progress={0.333} 
-            />
       <SafeAreaView
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
@@ -137,7 +137,7 @@ const SignUpProcess1 = ({ navigation }) => {
           style={{
             flexDirection: "row",
             height: 150,
-            marginTop: 20,
+            marginTop: 50,
             paddingHorizontal: 25,
             paddingBottom: 20,
           }}
@@ -161,78 +161,94 @@ const SignUpProcess1 = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Company Information
+              Personal Information
             </Text>
           </View>
           <View style={{ flex: 1, height: 200 }}>
             <Image
-              source={require("../assets/images/CreateAccountSetup.png")}
+              source={require("../assets/images/CreateAccount.png")}
               style={{
                 height: 141,
                 width: 110,
                 alignSelf: "flex-end",
               }}
-              resizeMode= 'repeat'
             />
           </View>
         </View>
         <ScrollView
           contentContainerStyle={{
-            paddingTop: 10,
+            paddingTop: 30,
             paddingHorizontal: 25,
             overflow: "hidden",
           }}
         >
           <View
             style={{
-              marginVertical: 10,
+              marginVertical: 30,
             }}
           >
             <Input
               returnKeyType="next"
-              placeholder="Your Brokerage Name"
-              error={errors.brokerageName}
+              placeholder="First Name"
+              error={errors.firstname}
               onFocus={() => {
-                handeleError(null, "brokerageName");
+                handeleError(null, "firstname");
               }}
-              onChangeText={(text) => handelOnChange(text, "brokerageName")}
+              onChangeText={(text) => handelOnChange(text, "firstname")}
             />
             <Input
-              placeholder="Your Company Name"
-              error={errors.companyName}
+              placeholder="Last Name"
+              error={errors.lastname}
               onFocus={() => {
-                handeleError(null, "companyName");
+                handeleError(null, "lastname");
               }}
-              onChangeText={(text) => handelOnChange(text, "companyName")}
+              onChangeText={(text) => handelOnChange(text, "lastname")}
               returnKeyType="next"
             />
             <Input
-              placeholder="Your Broker Name"
-              error={errors.brokerName}
+              placeholder="Email Address"
+              error={errors.email}
               onFocus={() => {
-                handeleError(null, "brokerName");
+                handeleError(null, "email");
               }}
-              onChangeText={(text) => handelOnChange(text, "brokerName")}
-              returnKeyType="next"
-            />
-            <Input
-              placeholder="Your Broker Email Address"
-              error={errors.brokerEmail}
-              onFocus={() => {
-                handeleError(null, "brokerEmail");
-              }}
-              onChangeText={(text) => handelOnChange(text, "brokerEmail")}
+              onChangeText={(text) => handelOnChange(text, "email")}
               returnKeyType="next"
             />
             <Input
               keyboardType="numeric"
-              placeholder="Your Broker Phone Number"
-              error={errors.brokerPhone}
+              placeholder="Phone Number"
+              error={errors.phone}
               onFocus={() => {
-                handeleError(null, "brokerPhone");
+                handeleError(null, "phone");
               }}
-              onChangeText={(number) => handelOnChange(number, "brokerPhone")}
+              onChangeText={(number) => handelOnChange(number, "phone")}
             />
+            <Input
+              placeholder="Password"
+              error={errors.password}
+              onFocus={() => {
+                handeleError(null, "password");
+              }}
+              password
+              onChangeText={(text) => handelOnChange(text, "password")}
+            />
+            <Input
+              placeholder="Confirm Password"
+              error={errors.confpassword}
+              onFocus={() => {
+                handeleError(null, "confpassword");
+              }}
+              password
+              onChangeText={(text) => handelOnChange(text, "confpassword")}
+            />
+            {/* <Input
+                        placeholder="Occupation"
+                        error={errors.occupation}
+                        onFocus={()=> {
+                            handeleError(null, "occupation");
+                        }}
+                        onChangeText = {(text)=>handelOnChange(text,"occupation")}
+                    /> */}
             <View
               style={{
                 flex: 1,
@@ -244,8 +260,11 @@ const SignUpProcess1 = ({ navigation }) => {
               <RNPickerSelect
                 require
                 onValueChange={(value) => setSelectedValue(value)}
-                placeholder={{ label: "State Licenced In", value: null }}
-                items={pickerItems} 
+                placeholder={{ label: "Occupation", value: null }}
+                items={[
+                    { label: "Real Estate Agent", value: "RealEstateAgent" },
+                    { label: "Real Estate Broker", value: "RealEstateBroker" },
+                ]}
                 activeOpacity={0.7}
                 style={{
                   inputIOS: {
@@ -261,29 +280,48 @@ const SignUpProcess1 = ({ navigation }) => {
                 }}
               />
             </View>
-            <Input
-              placeholder="Agent ID"
-              error={errors.agentId}
-              onFocus={()=> {
-                handeleError(null, "agentId");
-              }}
-              onChangeText = {(text)=>handelOnChange(text,"agentId")}
-            /> 
-            <Input
-              placeholder="Borker ID"
-              error={errors.brokerId}
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 6,
+                }}
+            >
+              <RNPickerSelect
+                require
+                onValueChange={(value) => setSelectedLanguage(value)}
+                placeholder={{ label: "Add Additional Language", value: null }}
+                items={languagePickerItems} 
+                activeOpacity={0.7}
+                style={{
+                  inputIOS: {
+                    height: 48,
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 20,
+                    borderWidth: 1.5,
+                    borderColor: COLORS.lightgrey,
+                    borderRadius: 26,
+                    color: COLORS.secondary,
+                  },
+                }}
+              />
+            </View>
+            {/* <Input
+              placeholder="Add Additional Language"
+              error={errors.anotherlanguage}
               onFocus={() => {
-                handeleError(null, "brokerId");
+                handeleError(null, "anotherlanguage");
               }}
-              onChangeText={(text) => handelOnChange(text, "brokerId")}
-            />
+              onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
+            /> */}
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <ButtonLicense title="Add Additional State Licenses" onPress={() => navigation.navigate("SignUp")} />  
             <Button 
-              title="Continue" 
+              title="Send Verification Email" 
               // onPress={validate} 
-              onPress={() => navigation.navigate("SignUpProcess2")}
+              onPress={() => navigation.navigate("SignUpProcess1")}
               />
             <Text
               style={{
@@ -292,9 +330,17 @@ const SignUpProcess1 = ({ navigation }) => {
                 textAlign: "center",
                 paddingTop: 10,
               }}
+              // onPress={()=> navigation.navigate('Login')}
             >
               We need some more informations.
             </Text>
+          </View>
+          <View style={styles.container}>
+            <TouchableOpacity onPress={openModal}>
+              <Text style={styles.openModalButton}>Open Modal</Text>
+            </TouchableOpacity>
+
+            <CustomModal isVisible={modalVisible} onClose={closeModal} />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -302,4 +348,16 @@ const SignUpProcess1 = ({ navigation }) => {
   );
 };
 
-export default SignUpProcess1;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  openModalButton: {
+    fontSize: 20,
+    color: "blue",
+  },
+});
+
+export default SignUp;
