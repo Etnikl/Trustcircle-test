@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import COLORS from "../constants/colors";
-import languages from '../JSON/languages.json';
+import languages from '../assets/JSON/languages.json';
 
 const LanguagePicker = (props) => {
   const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
@@ -48,18 +48,23 @@ const LanguagePicker = (props) => {
         }}
       />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 16 }}>
-        {selectedLanguages.map((language, index) => (
-          <View key={index} style={{ 
-            margin: 4, 
-            flexDirection: 'row', 
-            borderWidth: 1, 
-            borderRadius: 16, paddingHorizontal: 8, paddingVertical: 4, backgroundColor:COLORS.primary}}>
-            <Text style={{color: COLORS.white}}>{language}</Text>
-            <TouchableOpacity onPress={() => removeLanguage(language)}>
-              <Text style={{ marginLeft: 8, color: COLORS.white }}>X</Text>
-            </TouchableOpacity>
-          </View>
-        ))}
+        <View style={{flexDirection: 'row', flex:1,}}>
+          {selectedLanguages.map((language, index) => (
+            <View key={index} style={{ 
+              margin: 4, 
+              flexDirection: 'row', 
+              borderRadius: 16, 
+              paddingHorizontal: 10,
+              paddingVertical: 5, 
+              backgroundColor:COLORS.primary,
+              }}>
+              <Text style={{color: COLORS.white}}>{language}</Text>
+              <TouchableOpacity onPress={() => removeLanguage(language)}>
+                <Text style={{ marginLeft: 8, color: COLORS.white }}>X</Text>
+              </TouchableOpacity>
+            </View>
+          ))}
+        </View>
       </View>
     </View>
   );

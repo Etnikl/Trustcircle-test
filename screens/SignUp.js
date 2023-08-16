@@ -292,14 +292,6 @@ const SignUp = ({ navigation }) => {
             </View>
             <LanguagePicker />
             </View>
-            {/* <Input
-              placeholder="Add Additional Language"
-              error={errors.anotherlanguage}
-              onFocus={() => {
-                handeleError(null, "anotherlanguage");
-              }}
-              onChangeText={(text) => handelOnChange(text, "anotherlanguage")}
-            /> */}
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
             <Button 
               title="Send Verification Email" 
@@ -317,13 +309,6 @@ const SignUp = ({ navigation }) => {
             >
               We need some more informations.
             </Text>
-          </View>
-          <View style={styles.container}>
-            <TouchableOpacity onPress={openModal}>
-              <Text style={styles.openModalButton}>Open Modal</Text>
-            </TouchableOpacity>
-
-            <CustomModal isVisible={modalVisible} onClose={closeModal} />
           </View>
         </ScrollView>
       </SafeAreaView>

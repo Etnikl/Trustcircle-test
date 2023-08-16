@@ -41,8 +41,8 @@ const Login = ({ navigation }) => {
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
       handeleError("Please enter a valid email", "email");
     }
-
     if (!inputs.password) {
+      valid = false;
       handeleError("Please provide your password.", "password");
     } else if (inputs.password.length < 6) {
       handeleError("Min password length of 6", "password");
@@ -51,6 +51,7 @@ const Login = ({ navigation }) => {
       loginsetup();
     }
   };
+
 
   const storeUser = async () => {
     try {
@@ -66,11 +67,6 @@ const Login = ({ navigation }) => {
     }
   };
 
-  React.useEffect(() => {
-    storeUser();
-  }, []);
-  
-
   const loginsetup = async () => {
     setLoading(true);
     setTimeout(async () => {
@@ -85,7 +81,7 @@ const Login = ({ navigation }) => {
             inputs.email === storedUser.email &&
             inputs.password === storedUser.password
           ) {
-            setInputs({ email: "", password: "" });
+            setInputs({ email: "", password: "" }); // Clear input values
             navigation.navigate("Home");
           } else if (
             inputs.email !== storedUser.email &&
@@ -107,10 +103,15 @@ const Login = ({ navigation }) => {
       }
     }, 1000);
   };
+
   
+  React.useEffect(() => {
+    storeUser();
+  }, []);
+
 
   const [errors, setErrors] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState();
 
   const handelOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
@@ -138,6 +139,7 @@ const Login = ({ navigation }) => {
     }
   };
   
+
   React.useEffect(() => {
     const getUser = async () => {
       try {
@@ -145,7 +147,7 @@ const Login = ({ navigation }) => {
         storeUser();
         const rememberedUserJSON = await AsyncStorage.getItem("rememberedUser");
         const rememberedUser = rememberedUserJSON && JSON.parse(rememberedUserJSON);
-  
+
         if (rememberedUser) {
           setInputs({
             email: rememberedUser.email,
@@ -156,10 +158,10 @@ const Login = ({ navigation }) => {
         console.log("Error getting remembered user:", error);
       }
     };
-  
+
     getUser();
   }, []);
-  
+
 
 
   // icone handel
@@ -290,9 +292,9 @@ const Login = ({ navigation }) => {
                 </Text>
               </View>
               <View style={{ paddingTop: 50, marginHorizontal: 25 }}>
-                <ButtonPrimary title="Log in" 
-                // onPress={validate} 
-                onPress={() => navigation.navigate("Home")}
+                <ButtonPrimary title="Log in"
+                onPress={validate}
+                // onPress={() => navigation.navigate("Home")}
                 />
               </View>
               <View style={{ marginTop: 8, marginHorizontal: 25 }}>

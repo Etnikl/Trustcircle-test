@@ -14,12 +14,12 @@ import {
 } from "react-native";
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import RNPickerSelect from "react-native-picker-select";
-import { ButtonPrimary, Button } from "../components/Button";
-import CustomModal from "../components/CosutmModal";
-import Input from "../components/Input";
-import Loader from "../components/Loader";
-import COLORS from "../constants/colors";
-import languages from '../assets/JSON/languages.json'
+import { ButtonPrimary, Button } from "../../components/Button";
+import CustomModal from "../../components/CosutmModal";
+import Input from "../../components/Input";
+import Loader from "../../components/Loader";
+import COLORS from "../../constants/colors";
+import languages from '../../assets/JSON/languages.json'
 
 const SignUp = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({

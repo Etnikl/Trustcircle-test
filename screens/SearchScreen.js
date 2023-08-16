@@ -10,8 +10,23 @@ import React from "react";
 import COLORS from "../constants/colors";
 import TopNav from "../components/TopNav";
 import Loader from "../components/Loader";
+import SearchDropdown from "../components/SearchInput";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import profileUsers from '../assets/JSON/profileUsers.json'
 
 const SearchScreen = ({ navigation }) => {
+
+  // const searchData = ['apple', 'banana', 'cherry', 'date', 'fig', 'grape', 'kiwi'];
+  // const searchData = [
+  //   { title: { name: 'John Smith', profession: 'Software Developer' } },
+  //   { title: { name: 'Mary Johnson', profession: 'UI/UX Designer' } },
+  //   { title: { name: 'Robert Brown', profession: 'QA Engineer' } },
+  //   // ...
+  // ];
+
+  const handleRightPress = () => {
+    console.log('Add Search pressed');
+  };
 
   return (
     <KeyboardAvoidingView
@@ -35,6 +50,13 @@ const SearchScreen = ({ navigation }) => {
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
         <Loader visible={null} />
+        <SearchDropdown
+          data={profileUsers}
+          label="Search contacts, profession, city (popup)"
+          leftSource={require('../assets/images/IconSearch.png')}
+          rightSource={require('../assets/images/IconAdd.png')}
+          onPressRight={handleRightPress}
+      />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
