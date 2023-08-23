@@ -77,6 +77,14 @@ const Welcome = ({ navigation }) => {
                         with: '100%'
                     }}
                 />
+                <Button
+                    title="QASupport"
+                    onPress={()=>navigation.navigate("QASupport")}
+                    style={{
+                        marginTop: 20,
+                        with: '100%'
+                    }}
+                />
                 <View style={{
                     flexDirection: 'row',
                     marginTop: 20,

@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail } from "./screens";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail, QASupport, ContactUs } from "./screens";
 import CostumeToast, { showToast } from "./components/ToastNotifications";
 
 
@@ -84,6 +84,24 @@ export default function App() {
           component={TermsConditions}
           options={{
             headerShown: false
+          }}
+        />
+        <Stack.Screen 
+          name="QASupport"
+          component={QASupport}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            animationEnabled: true
+          }}
+        />
+        <Stack.Screen 
+          name="ContactUs"
+          component={ContactUs}
+          options={{
+            headerBackTitleVisible: false,
+            headerShown: false,
+            animationEnabled: true
           }}
         />
         <Stack.Screen 

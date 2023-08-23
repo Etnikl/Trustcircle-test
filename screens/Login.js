@@ -70,7 +70,7 @@ const Login = ({ navigation }) => {
           ) {
             console.log(`Logged in as user with ID: ${storedUser.id}`);
             if (!rememberMe) {
-              setInputs({ email: "", password: "" }); // Clear input values
+              setInputs({ email: "", password: "" });   
             } 
             navigation.navigate("Home");
           } else if (

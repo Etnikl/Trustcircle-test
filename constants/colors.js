@@ -13,6 +13,7 @@ const COLORS = {
     errorcolor: '#FC5A5B',
     homeNav: '#F2F4F6',
     btnLicense: '#65788D',
+    supToggle: '#E2EAF3',
 }
 
 export default COLORS;
