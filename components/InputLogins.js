@@ -3,15 +3,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import COLORS from "../constants/colors";
 
-const InputLogins = ({
+const InputLogins = React.forwardRef(({
     label, 
     iconName, 
     error, 
     password, 
+    returnKeyType,
+    onSubmitEditing, // Add this prop
+    blurOnSubmit, // Add this prop
     onFocus=()=> {}, 
     ...props
-    
-    }) => {
+    }, ref) => { // Add the ref parameter here
 
         const [isFocused,setIsFocused] = React.useState(false);
         const [hidePassword, setHidePassword] = React.useState(password);
@@ -25,8 +27,12 @@ const InputLogins = ({
                 ]}>
                 <Icon name={iconName} style={{fontSize: 22, color: COLORS.primary, marginRight: 10}} />
                 <TextInput 
+                    ref={ref} // Pass the ref here
                     secureTextEntry={hidePassword}
                     autoCorrect={false}
+                    returnKeyType={returnKeyType}
+                    onSubmitEditing={onSubmitEditing} // Add this prop
+                    blurOnSubmit={blurOnSubmit} // Add this prop
                     onFocus={()=> {
                         onFocus();
                         setIsFocused(true);
@@ -58,7 +64,7 @@ const InputLogins = ({
             )}
         </View>
     );
-}
+});
 
 const style = StyleSheet.create({
     inputContainer: {
@@ -69,7 +75,7 @@ const style = StyleSheet.create({
         borderRadius: 26,
         alignItems: 'center',
         borderColor: COLORS.warmew,
-        backgroundColor: COLORS.warmew
+        backgroundColor: COLORS.warmew 
     }
 })
 

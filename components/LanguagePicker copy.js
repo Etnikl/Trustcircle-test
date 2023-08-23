@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import COLORS from "../constants/colors";
 import languages from '../assets/JSON/languages.json';
-import {CustomPicker2} from "./CostumePicker";
 
 const LanguagePicker = (props) => {
   const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
@@ -19,7 +18,7 @@ const LanguagePicker = (props) => {
     if (value && !selectedLanguages.includes(value)) {
       setSelectedLanguages(prev => [...prev, value]);
     }
-    setPickerValue(null); 
+    setPickerValue(null);
   };
 
   const removeLanguage = (value) => {
@@ -28,20 +27,28 @@ const LanguagePicker = (props) => {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", marginBottom: 0 }}>
-      <View style={{
-        flex: 1,
-        width: '100%'
-      }}>
-        <CustomPicker2
-                ref={null}
-                options={languagePickerItems}
-                onValueChange={addLanguage}
-                placeholder="Add Additonal Language"
-                modaltitle="Add Additonal Language"
-        />
-      </View>
+      <RNPickerSelect
+        require
+        value={pickerValue}
+        onValueChange={addLanguage}
+        placeholder={{ label: "Add Additional Language", value: null }}
+        items={languagePickerItems}
+        activeOpacity={0.7}
+        style={{
+          inputIOS: {
+            height: 48,
+            fontSize: 16,
+            paddingVertical: 12,
+            paddingHorizontal: 20,
+            borderWidth: 1.5,
+            borderColor: COLORS.lightgrey,
+            borderRadius: 26,
+            color: COLORS.secondary,
+          },
+        }}
+      />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', flex:1,}}>
+        <View style={{flexDirection: 'row', flex:1,}}>
           {selectedLanguages.map((language, index) => (
             <View key={index} style={{ 
               margin: 4, 

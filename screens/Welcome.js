@@ -61,6 +61,22 @@ const Welcome = ({ navigation }) => {
                         with: '100%'
                     }}
                 />
+                <Button
+                    title="VerifyEmail"
+                    onPress={()=>navigation.navigate("VerifyEmail")}
+                    style={{
+                        marginTop: 20,
+                        with: '100%'
+                    }}
+                />
+                <Button
+                    title="ChangePassword"
+                    onPress={()=>navigation.navigate("ChangePassword")}
+                    style={{
+                        marginTop: 20,
+                        with: '100%'
+                    }}
+                />
                 <View style={{
                     flexDirection: 'row',
                     marginTop: 20,

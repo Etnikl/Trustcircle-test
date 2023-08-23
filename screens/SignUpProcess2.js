@@ -15,7 +15,7 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { ButtonPrimary, Button } from "../components/Button";
 import Input from "../components/Input";
-import Loader from "../components/Loader";
+import Loader from "../components/Loadings/Loader";
 import COLORS from "../constants/colors";
 import TopNavProgress from "../components/TopNavProgress";
 

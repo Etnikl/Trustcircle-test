@@ -21,9 +21,10 @@ import {
 } from "../components/Button";
 import Checkbox from "../components/Checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Loader from "../components/Loader";
-import ScreenLoading from "../components/ScreenLoading"
-
+import Loader from "../components/Loadings/Loader";
+import ScreenLoading from "../components/Loadings/ScreenLoading"
+import usersData from '../assets/JSON/users.json'
+import { showToast } from "../components/ToastNotifications";
 
 const Login = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -52,36 +53,25 @@ const Login = ({ navigation }) => {
     }
   };
 
-
-  const storeUser = async () => {
-    try {
-      await AsyncStorage.setItem(
-        "user",
-        JSON.stringify({
-          email: "test@example.com",
-          password: "password123",
-        })
-      );
-    } catch (error) {
-      console.log("Error storing user:", error);
-    }
-  };
-
   const loginsetup = async () => {
     setLoading(true);
     setTimeout(async () => {
       setLoading(false);
 
       try {
-        const storedUserJSON = await AsyncStorage.getItem("user");
-        const storedUser = storedUserJSON && JSON.parse(storedUserJSON);
+        const storedUser = usersData.users.find(
+          (user) => user.email === inputs.email
+        );
 
         if (storedUser) {
           if (
             inputs.email === storedUser.email &&
             inputs.password === storedUser.password
           ) {
-            setInputs({ email: "", password: "" }); // Clear input values
+            console.log(`Logged in as user with ID: ${storedUser.id}`);
+            if (!rememberMe) {
+              setInputs({ email: "", password: "" }); // Clear input values
+            } 
             navigation.navigate("Home");
           } else if (
             inputs.email !== storedUser.email &&
@@ -104,7 +94,14 @@ const Login = ({ navigation }) => {
     }, 1000);
   };
 
-  
+  const storeUser = async () => {
+    try {
+      console.log("Stored users:", usersData.users);
+    } catch (error) {
+      console.log("Error displaying users:", error);
+    }
+  };
+
   React.useEffect(() => {
     storeUser();
   }, []);
@@ -121,12 +118,30 @@ const Login = ({ navigation }) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
 
-  // const handleCheckboxChange = (checked) => {
-  //   console.log("Checkbox checked:", checked);
-  // };
+  const [rememberMe, setRememberMe] = React.useState(false);
+
+  React.useEffect(() => {
+    const loadRememberedUser = async () => {
+      const rememberedUser = await AsyncStorage.getItem("rememberedUser");
+      console.log("Remembered user:", rememberedUser); // Add this line
+      if (rememberedUser) {
+        const { email, password } = JSON.parse(rememberedUser);
+        setInputs({ email, password });
+      }
+      else {
+        setInputs({ email: "", password: "" });
+      }
+    };
+    
+
+    loadRememberedUser();
+  }, []);
+
 
   const handleCheckboxChange = async (checked) => {
+    setRememberMe(checked); // Update the state
     if (checked) {
+      console.log('handleCheckboxChange called', checked);
       await AsyncStorage.setItem(
         "rememberedUser",
         JSON.stringify({
@@ -134,36 +149,14 @@ const Login = ({ navigation }) => {
           password: inputs.password,
         })
       );
+      console.log('handleCheckboxChange called email', inputs.email);
+      console.log('handleCheckboxChange called password', inputs.password);
     } else {
       await AsyncStorage.removeItem("rememberedUser");
     }
   };
   
-
-  React.useEffect(() => {
-    const getUser = async () => {
-      try {
-        const storedUserJSON = await AsyncStorage.getItem("user");
-        storeUser();
-        const rememberedUserJSON = await AsyncStorage.getItem("rememberedUser");
-        const rememberedUser = rememberedUserJSON && JSON.parse(rememberedUserJSON);
-
-        if (rememberedUser) {
-          setInputs({
-            email: rememberedUser.email,
-            password: rememberedUser.password,
-          });
-        }
-      } catch (error) {
-        console.log("Error getting remembered user:", error);
-      }
-    };
-
-    getUser();
-  }, []);
-
-
-
+  
   // icone handel
 
   const handleGooglePress = () => {
@@ -177,6 +170,9 @@ const Login = ({ navigation }) => {
     const handleApplePress = () => {
       console.log("Apple icon pressed");
     };
+
+    const emailRef = React.createRef();
+    const passwordRef = React.createRef();
 
   return (
     <LinearGradient
@@ -244,6 +240,7 @@ const Login = ({ navigation }) => {
                 }}
               >
                 <InputLogins
+                  ref={emailRef}
                   returnKeyType="next"
                   iconName={"email"}
                   placeholder="Email"
@@ -253,9 +250,13 @@ const Login = ({ navigation }) => {
                     handeleError(null, "email");
                   }}
                   onChangeText={(text) => handelOnChange(text, "email")}
+                  onSubmitEditing={() => passwordRef.current.focus()} // Focus on the password field when the Next button is pressed
+                  blurOnSubmit={false} // Prevent the keyboard from hiding
                 />
                 <InputLogins
+                  ref={passwordRef}
                   iconName={"lock"}
+                  returnKeyType="done"
                   placeholder="Password"
                   error={errors.password}
                   value={inputs.password}
@@ -264,6 +265,8 @@ const Login = ({ navigation }) => {
                   }}
                   password
                   onChangeText={(text) => handelOnChange(text, "password")}
+                  // No need for onSubmitEditing here, since this is the last input field
+                  blurOnSubmit={true} // Allow the keyboard to hide after submitting
                 />
               </View>
               <View

@@ -4,7 +4,7 @@ import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../constants/colors';
 import { Button, NavButton} from '../components/Button';
-import Loader from '../components/Loader';
+import Loader from '../components/Loadings/Loader';
 import NewOppuScrollVertical from '../components/NewOppuScrollVertical';
 import { oppurtunity } from '../assets/data/data';
 import BottomNav from '../components/BottomNav';

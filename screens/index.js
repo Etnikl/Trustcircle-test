@@ -11,6 +11,7 @@ import SignUpProcess2 from "./SignUpProcess2"
 import SignUpProcess3 from "./SignUpProcess3"
 import Home from "./Home";
 import SearchScreen from "./SearchScreen";
+import VerifyEmail from "./VerifyEmail"
 
 export {
     Home,
@@ -26,4 +27,5 @@ export {
     SignUpProcess2,
     SignUpProcess3,
     SearchScreen,
+    VerifyEmail,
 }

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Image,
@@ -13,13 +13,18 @@ import {
   View,
 } from "react-native";
 // import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import RNPickerSelect from "react-native-picker-select";
 import { ButtonPrimary, Button } from "../components/Button";
 import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
-import Loader from "../components/Loader";
+import Loader from "../components/Loadings/Loader";
 import COLORS from "../constants/colors";
 import LanguagePicker from '../components/LanguagePicker'
+import usersData from '../assets/JSON/users.json'
+import {CustomPicker} from "../components/CostumePicker";
+import occupations from '../assets/JSON/occupations.json';
+import { showToast } from "../components/ToastNotifications";
+
+
 
 const SignUp = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -31,34 +36,8 @@ const SignUp = ({ navigation }) => {
     confpassword: "",
   });
 
-  //api
-
-  // const [selectedLanguages, setSelectedLanguages] = useState(["English"]);
-  // const [pickerValue, setPickerValue] = useState(null);
-
-  // const languagePickerItems = languages.map((language, index) => ({
-  //   label: language.name,
-  //   value: language.name,
-  //   key: index+1,
-  // }));
-
-  // const addLanguage = (value) => {
-  //   if (value && !selectedLanguages.includes(value)) {
-  //     setSelectedLanguages(prev => [...prev, value]);
-  //   }
-  //   setPickerValue(null);
-  // };
-
-  // const removeLanguage = (value) => {
-  //   setSelectedLanguages(prev => prev.filter(lang => lang !== value));
-  // };
-
-  // api
-
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
-
-  const realpassword = inputs.password;
 
   const validate = () => {
     let valid = true;
@@ -69,30 +48,37 @@ const SignUp = ({ navigation }) => {
       valid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
       handeleError("Please enter a valid email", "email");
+      valid = false;
     }
 
     if (!inputs.firstname) {
       handeleError("Please enter your first name.", "firstname");
+      valid = false;
     }
 
     if (!inputs.lastname) {
       handeleError("Please enter your last name.", "lastname");
+      valid = false;
     }
 
     if (!inputs.phone) {
       handeleError("Please enter your phone number.", "phone");
+      valid = false;
     }
 
     if (!inputs.password) {
       handeleError("Please provide your password.", "password");
+      valid = false;
     } else if (inputs.password.length < 6) {
       handeleError("Min password length of 6", "password");
     }
 
-    if (!inputs.password) {
-      handeleError("Please provide your password.", "confpassword");
-    } else if (inputs.confpassword.input != inputs.password.input) {
+    if (!inputs.confpassword) {
+      handeleError("Please confirm your password.", "confpassword");
+      valid = false;
+    } else if (inputs.confpassword !== inputs.password) {
       handeleError("Please enter a matching password.", "confpassword");
+      valid = false;
     }
 
     if (valid) {
@@ -100,20 +86,24 @@ const SignUp = ({ navigation }) => {
     }
   };
 
-  const register = () => {
+  console.log("Last Data in USERS DATA::", usersData)
+
+  const register = async () => {
     setLoading(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       setLoading(false);
 
       try {
         AsyncStorage.setItem("user", JSON.stringify(inputs));
-        navigation.navigate("Login");
+        navigation.navigate("VerifyEmail");
+        showToast("Incredible!", "Successfully registered! Check your email for verification", "success"); 
       } catch (error) {
         Alert.alert("Error", "Something went wrong");
+        showToast("Something went wrong!", "There was a problem while creating account, please try again.", "error");
       }
     }, 3000);
   };
-
+  
   const handelOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
@@ -123,24 +113,34 @@ const SignUp = ({ navigation }) => {
   };
 
   console.log(inputs);
-  console.log(realpassword);
 
   const [selectedValue, setSelectedValue] = React.useState(null);
   const [selectedLanguage, setSelectedLanguage] = React.useState(null);
 
 
-  // Modal window
+  const firstnameRef = React.createRef();
+  const lastnameRef = React.createRef();
+  const phoneRef = React.createRef();
+  const emailRef = React.createRef();
+  const passwordRef = React.createRef();
+  const confpasswordRef = React.createRef();
+  const occupationRef = React.createRef();
+  const languageRef = React.createRef();
+  const pickerRef = React.useRef();
 
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const openModal = () => {
-    setModalVisible(true);
+  const options = occupations.map((language, index) => ({
+    label: language.name,
+    value: language.name,
+    key: index+1,
+  }));
+
+  const handlePickerValueChange = (value) => {
+    console.log('Selected value:', value);
+  }
+
+  const handleValueChange = (value) => {
+    console.log('Selected Value:', value);
   };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
-  //   end modal window
 
   return (
     <KeyboardAvoidingView
@@ -206,6 +206,7 @@ const SignUp = ({ navigation }) => {
             }}
           >
             <Input
+              ref={firstnameRef}
               returnKeyType="next"
               placeholder="First Name"
               error={errors.firstname}
@@ -213,8 +214,11 @@ const SignUp = ({ navigation }) => {
                 handeleError(null, "firstname");
               }}
               onChangeText={(text) => handelOnChange(text, "firstname")}
+              onSubmitEditing={() => lastnameRef.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
+              ref={lastnameRef}
               placeholder="Last Name"
               error={errors.lastname}
               onFocus={() => {
@@ -222,8 +226,11 @@ const SignUp = ({ navigation }) => {
               }}
               onChangeText={(text) => handelOnChange(text, "lastname")}
               returnKeyType="next"
+              onSubmitEditing={() => emailRef.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
+              ref={emailRef}
               placeholder="Email Address"
               error={errors.email}
               onFocus={() => {
@@ -231,8 +238,11 @@ const SignUp = ({ navigation }) => {
               }}
               onChangeText={(text) => handelOnChange(text, "email")}
               returnKeyType="next"
+              onSubmitEditing={() => phoneRef.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
+              ref={phoneRef}
               keyboardType="numeric"
               placeholder="Phone Number"
               error={errors.phone}
@@ -240,8 +250,12 @@ const SignUp = ({ navigation }) => {
                 handeleError(null, "phone");
               }}
               onChangeText={(number) => handelOnChange(number, "phone")}
+              returnKeyType="next"
+              onSubmitEditing={() => passwordRef.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
+              ref={passwordRef}
               placeholder="Password"
               error={errors.password}
               onFocus={() => {
@@ -249,8 +263,12 @@ const SignUp = ({ navigation }) => {
               }}
               password
               onChangeText={(text) => handelOnChange(text, "password")}
+              returnKeyType="next"
+              onSubmitEditing={() => confpasswordRef.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
+              ref={confpasswordRef}
               placeholder="Confirm Password"
               error={errors.confpassword}
               onFocus={() => {
@@ -258,8 +276,17 @@ const SignUp = ({ navigation }) => {
               }}
               password
               onChangeText={(text) => handelOnChange(text, "confpassword")}
+              returnKeyType="next"
+              onSubmitEditing={() =>
+                {
+                if (pickerRef.current) {
+                  pickerRef.current.open();
+                }
+                }
+              }
+              blurOnSubmit={true}
             />
-            <View
+            {/* <View
               style={{
                 flex: 1,
                 justifyContent: "center",
@@ -268,6 +295,7 @@ const SignUp = ({ navigation }) => {
                 }}
             >
               <RNPickerSelect
+                ref={occupationRef}
                 require
                 onValueChange={(value) => setSelectedValue(value)}
                 placeholder={{ label: "Occupation", value: null }}
@@ -289,14 +317,26 @@ const SignUp = ({ navigation }) => {
                   },
                 }}
               />
-            </View>
+            </View> */}
+            <CustomPicker
+              ref={pickerRef}
+              options={options}
+              onValueChange={handleValueChange}
+              placeholder="Occupation"
+              modaltitle="Select Your Occupation"
+            />
             <LanguagePicker />
             </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button 
+            {/* <Button 
               title="Send Verification Email" 
               // onPress={validate} 
-              onPress={() => navigation.navigate("SignUpProcess1")}
+              onPress={() => navigation.navigate("SignUpProcess1")}  //Real Button that we need to use
+              /> */} 
+              <Button 
+              title="Register" 
+              onPress={validate} 
+              // onPress={() => navigation.navigate("SignUpProcess1")}
               />
             <Text
               style={{
@@ -316,16 +356,5 @@ const SignUp = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  openModalButton: {
-    fontSize: 20,
-    color: "blue",
-  },
-});
 
 export default SignUp;

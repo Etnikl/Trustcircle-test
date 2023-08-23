@@ -67,7 +67,7 @@ const Button = ({title, onPress={}=()=>{}}) => {
             }}>
             <Text 
                 style={{
-                    color: COLORS.textcolor,
+                    color: COLORS.white,
                     fontWeight: 'bold',
                     fontSize: 18,
                 }}>

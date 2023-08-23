@@ -1,7 +1,8 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen } from "./screens";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail } from "./screens";
+import CostumeToast, { showToast } from "./components/ToastNotifications";
 
 
 const Stack = createNativeStackNavigator()
@@ -9,7 +10,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Welcome"
       >
         <Stack.Screen 
           name="Welcome"
@@ -69,6 +70,16 @@ export default function App() {
           }}
         />
         <Stack.Screen 
+          name="VerifyEmail"
+          component={VerifyEmail}
+          options={{
+            headerBackTitleVisible: false,
+            gestureEnabled: false,
+            headerShown: false,
+            animationEnabled: true
+          }}
+        />
+        <Stack.Screen 
           name="TermsConditions"
           component={TermsConditions}
           options={{
@@ -116,6 +127,7 @@ export default function App() {
           }}
         />
       </Stack.Navigator>
+      <CostumeToast />
     </NavigationContainer>
   );
 }

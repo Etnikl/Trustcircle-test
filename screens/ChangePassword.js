@@ -17,9 +17,11 @@ import RNPickerSelect from "react-native-picker-select";
 import { ButtonPrimary, Button } from "../components/Button";
 import CustomModal from "../components/CosutmModal";
 import Input from "../components/Input";
-import Loader from "../components/Loader";
+import Loader from "../components/Loadings/Loader";
 import COLORS from "../constants/colors";
 import TopNav from "../components/TopNav";
+import { showToast } from "../components/ToastNotifications";
+import ContainerLoad from "../components/Loadings/ContainerLoad";
 
 const ChangePassword = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
@@ -39,20 +41,25 @@ const ChangePassword = ({ navigation }) => {
     Keyboard.dismiss();
     if (!inputs.currpassword) {
       handeleError("Please provide your password.", "currpassword");
+      valid = false;
     } else if (inputs.currpassword.length < 6) {
       handeleError("Min password length of 6", "currpassword");
+      valid = false;
     }
 
     if (!inputs.password) {
       handeleError("Please provide your password.", "password");
+      valid = false;
     } else if (inputs.password.length < 6) {
       handeleError("Min password length of 6", "password");
     }
 
-    if (!inputs.password) {
-      handeleError("Please provide your password.", "confpassword");
-    } else if (inputs.confpassword.input != inputs.password.input) {
+    if (!inputs.confpassword) {
+      handeleError("Please confirm your password.", "confpassword");
+      valid = false;
+    } else if (inputs.confpassword !== inputs.password) {
       handeleError("Please enter a matching password.", "confpassword");
+      valid = false;
     }
 
     if (valid) {
@@ -67,11 +74,12 @@ const ChangePassword = ({ navigation }) => {
 
       try {
         AsyncStorage.setItem("user", JSON.stringify(inputs));
-        navigation.navigate("Login");
+        navigation.navigate("Welcome");
+        showToast("Success!", "Your password has been changed successfully.", "success");
       } catch (error) {
         Alert.alert("Error", "Something went wrong");
       }
-    }, 3000);
+    }, 500);
   };
 
   const handelOnChange = (text, input) => {
@@ -84,6 +92,10 @@ const ChangePassword = ({ navigation }) => {
 
   console.log(inputs);
   console.log(realpassword);
+
+  const currpasswordRef = React.createRef();
+  const passwordRef = React.createRef();
+  const confpasswordRef = React.createRef();
 
   return (
     <KeyboardAvoidingView
@@ -106,7 +118,7 @@ const ChangePassword = ({ navigation }) => {
       <SafeAreaView
         style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
       >
-        <Loader visible={loading} />
+        <ContainerLoad visible={loading} />
         <View
           style={{
             flexDirection: "row",
@@ -147,6 +159,7 @@ const ChangePassword = ({ navigation }) => {
           }}
         >
           <Input
+            ref={currpasswordRef}
             placeholder="Current Password"
             error={errors.currpassword}
             onFocus={() => {
@@ -154,8 +167,12 @@ const ChangePassword = ({ navigation }) => {
             }}
             password
             onChangeText={(text) => handelOnChange(text, "currpassword")}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            blurOnSubmit={false}
           />
           <Input
+            ref={passwordRef}
             placeholder="New Password"
             error={errors.password}
             onFocus={() => {
@@ -163,8 +180,12 @@ const ChangePassword = ({ navigation }) => {
             }}
             password
             onChangeText={(text) => handelOnChange(text, "password")}
+            returnKeyType="next"
+            onSubmitEditing={() => confpasswordRef.current.focus()}
+            blurOnSubmit={false}
           />
           <Input
+            ref={confpasswordRef}
             placeholder="Confirm New Password"
             error={errors.confpassword}
             onFocus={() => {
@@ -172,6 +193,8 @@ const ChangePassword = ({ navigation }) => {
             }}
             password
             onChangeText={(text) => handelOnChange(text, "confpassword")}
+            returnKeyType="done"
+            blurOnSubmit={true}
           />
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
             <Button title="Submit" onPress={validate} />
