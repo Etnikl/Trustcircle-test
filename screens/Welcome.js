@@ -54,6 +54,14 @@ const Welcome = ({ navigation }) => {
                     }}
                 />
                 <Button
+                    title="LoginFormik"
+                    onPress={()=>navigation.navigate("LoginFormik")}
+                    style={{
+                        marginTop: 20,
+                        with: '100%'
+                    }}
+                />
+                <Button
                     title="Create Account"
                     onPress={()=>navigation.navigate("SignUp")}
                     style={{

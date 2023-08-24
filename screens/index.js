@@ -14,6 +14,7 @@ import SearchScreen from "./SearchScreen";
 import VerifyEmail from "./VerifyEmail";
 import QASupport from "./QASupport";
 import ContactUs from "./ContactUs";
+import LoginFormik from "./LoginFormik";
 
 export {
     Home,
@@ -32,4 +33,5 @@ export {
     VerifyEmail,
     QASupport,
     ContactUs,
+    LoginFormik,
 }

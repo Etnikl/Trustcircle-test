@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail, QASupport, ContactUs } from "./screens";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail, QASupport, ContactUs, LoginFormik } from "./screens";
 import CostumeToast, { showToast } from "./components/ToastNotifications";
 
 
@@ -30,6 +30,14 @@ export default function App() {
         <Stack.Screen 
           name="Login"
           component={Login}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
+          }}
+        />
+        <Stack.Screen 
+          name="LoginFormik"
+          component={LoginFormik}
           options={{
             headerShown: false,
             gestureEnabled: false

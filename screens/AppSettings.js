@@ -72,7 +72,7 @@ const AppSettings = ({ navigation }) => {
             />
         </View>
         <View style={{marginBottom: 80}} >
-            <Button title="Log Out" onPress={() => navigation.navigate("Login")} />
+            <Button title="Log Out" onPress={() => navigation.navigate("LoginFormik")} />
         </View>
       </View>
         <Loader visible={null} />
