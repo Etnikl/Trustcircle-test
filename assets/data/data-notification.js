@@ -1,0 +1,68 @@
+export const notifications = [
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'New',
+    },
+    {
+      role: 'Major Remodels & Renovations',
+      time: '10:00 AM',
+      type: 'Referral',
+      status: 'Pending',
+      user: 'Labeat Arbneshi',
+      state: 'New',
+    },
+    {
+      role: 'Real Estate Agent',
+      time: '10:00 AM',
+      type: 'Referral',
+      status: 'Pending',
+      user: 'Pellumb Mehmeti',
+      state: 'New',
+    },
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'Read',
+    },
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'Read',
+    },
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'Read',
+    },
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'Read',
+    },
+
+    {
+      role: 'Carpet & Flooring',
+      time: '10:00 AM',
+      type: 'Opportunity',
+      status: 'Active',
+      user: 'Etnik Latifi',
+      state: 'Read',
+    },
+  ];
+  

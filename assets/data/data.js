@@ -18,7 +18,7 @@ export const oppurtunity = [
     {
       title: 'Looking for Commercial Building',
       time: '11:00 AM',
-      status: 'Inactive',
+      status: 'Pending',
       user: 'User2',
       state: 'Draft',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
@@ -34,7 +34,7 @@ export const oppurtunity = [
     {
       title: 'Looking for Commercial Building',
       time: '11:00 AM',
-      status: 'Inactive',
+      status: 'Active',
       user: 'User2',
       state: 'Draft',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
@@ -42,7 +42,7 @@ export const oppurtunity = [
     {
       title: 'Looking for Commercial Building',
       time: '11:00 AM',
-      status: 'Inactive',
+      status: 'Canceled',
       user: 'User2',
       state: 'Draft',
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',

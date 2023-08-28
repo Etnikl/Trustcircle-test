@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground } from "react-native";
 import COLORS from "../constants/colors";
 
+
 const NewOppuScrollVertical = ({ items , onPress={}=()=>{} }) => {
   if (!items) {
     return null; // or return a loading spinner, or some other fallback component
@@ -10,6 +11,19 @@ const NewOppuScrollVertical = ({ items , onPress={}=()=>{} }) => {
   const lastIndex = items.length - 1; // Get the index of the last item
 
   const itemWidth = screenWidth;
+
+  const getStatusStyle = (status) => {
+    switch (status.toLowerCase()) {
+      case 'active':
+        return styles.active;
+      case 'pending':
+        return styles.pending;
+      case 'canceled':
+        return styles.canceled;
+      default:
+        return {};
+    }
+  };
 
   return (
         <ScrollView
@@ -33,11 +47,11 @@ const NewOppuScrollVertical = ({ items , onPress={}=()=>{} }) => {
                 <Text style={styles.time}>{item.time}</Text>
             </View>
             <View style={styles.titleRow2}>
-                <Text style={styles.label}>User: {item.user}</Text> 
+                <Text style={styles.label}>User: {item.user} |</Text> 
                 <Text style={styles.labelStatus}>
-                    Status: <Text style={styles.Status} >{item.status}</Text>
+                    Status: <Text style={[styles.Status, getStatusStyle(item.status)]} >{item.status} <Text style={{color: COLORS.lightgrey}} >|</Text></Text>
                 </Text>
-                <Text style={styles.label}>State: {item.state}</Text>
+                <Text style={styles.label}>State: {item.state} |</Text>
             </View>
             <View style={{overflow: 'hidden', paddingBottom: 15}} >
               <Text style={styles.description}>{item.description}</Text>  
@@ -92,20 +106,29 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     marginTop: 5,
-    marginRight: 5,
+    marginRight: 3,
     color: COLORS.lightgrey,
   },
   labelStatus: {
     fontSize: 10,
     marginTop: 5,
-    marginRight: 5,
+    marginRight: 3,
     color: COLORS.lightgrey,
   },
   lastItem: {
     marginBottom: 70,
   },
   Status: {
-    color: 'green'
+    color: COLORS.primary,
+  },
+  active: {
+    color: 'green',
+  },
+  pending: {
+    color: 'orange',
+  },
+  canceled: {
+    color: 'red',
   },
   description: {
     overflow: 'hidden',

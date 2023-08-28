@@ -15,6 +15,7 @@ import VerifyEmail from "./VerifyEmail";
 import QASupport from "./QASupport";
 import ContactUs from "./ContactUs";
 import LoginFormik from "./LoginFormik";
+import Notification from "./Notification";
 
 export {
     Home,
@@ -34,4 +35,5 @@ export {
     QASupport,
     ContactUs,
     LoginFormik,
+    Notification,
 }

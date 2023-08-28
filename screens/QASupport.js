@@ -52,7 +52,7 @@ const QASupport = ({ navigation }) => {
         title="Support"
         iconRight={null}
         onPressLeft={() => {
-          navigation.navigate("Welcome");
+          navigation.goBack();
         }}
         onPressRight={() => {
           {

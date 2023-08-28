@@ -13,6 +13,7 @@ import Loader from "../components/Loadings/Loader";
 import SearchDropdown from "../components/SearchInput";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import profileUsers from '../assets/JSON/profileUsers.json'
+import BottomNav from "../components/BottomNav";
 
 const SearchScreen = ({ navigation }) => {
 
@@ -38,7 +39,7 @@ const SearchScreen = ({ navigation }) => {
         title="Search"
         iconRight={null}
         onPressLeft={() => {
-          navigation.navigate("Home");
+          navigation.goBack();
         }}
         onPressRight={() => {
           {
@@ -57,6 +58,7 @@ const SearchScreen = ({ navigation }) => {
           rightSource={require('../assets/images/IconAdd.png')}
           onPressRight={handleRightPress}
       />
+      <BottomNav />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

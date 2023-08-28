@@ -100,7 +100,7 @@ const Home = ({ navigation }) => {
         <NewOppuScroll items={oppurtunity}  onPress={() => navigation.navigate("Oppurtunities")} />
         <ScrollComponent items={walletItems}/>
         <ScrollView style={styles.content}></ScrollView>
-        <BottomNav notifications={2} />
+        <BottomNav/>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

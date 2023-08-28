@@ -74,7 +74,7 @@ const ContactUs = ({ navigation }) => {
         title="Contact Us"
         iconRight={null}
         onPressLeft={() => {
-          navigation.navigate("QASupport");
+          navigation.goBack();
         }}
         onPressRight={() => {
           {

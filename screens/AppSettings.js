@@ -60,6 +60,7 @@ const AppSettings = ({ navigation }) => {
                 label={"Support"}
                 leftSource={require("../assets/images/IconSupport.png")}
                 onPress={() => {
+                  navigation.navigate('QASupport');
                 console.log("Button Pressed");
                 }}
             />

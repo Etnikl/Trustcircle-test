@@ -2,11 +2,19 @@ import React from "react";
 import { View, TouchableOpacity, Text, ImageBackground, Dimensions } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import COLORS from "../constants/colors";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { notifications } from "../assets/data/data-notification";
 
-const BottomNav = ({ notifications }) => {
+const BottomNav = () => {
 
+  const route = useRoute();
   const navigation = useNavigation();
+
+  const newNotificationsCount = notifications.filter(
+    (notification) => notification.state.toLowerCase() === 'new'
+  ).length;
+
+  const navnotifications = newNotificationsCount;
 
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
@@ -15,28 +23,64 @@ const BottomNav = ({ notifications }) => {
   console.log('Screen Height:', screenHeight);
 
   const handleIcon1Press = () => {
-    console.log("Icon 1 pressed");
-    navigation.navigate("Home");
+    console.log("Icon 1 pressed - Home");
+
+    if (route.name === 'Home') {
+      console.log("This page is active");
+      // Refresh the page or do nothing
+    } else {
+      navigation.navigate('Home');
+    }
   };
 
   const handleIcon2Press = () => {
-    console.log("Icon 2 pressed");
-    navigation.navigate("SearchScreen");
+    console.log("Icon 2 pressed - SearchScreen");
+
+    if (route.name === 'SearchScreen') {
+      console.log("This page is active");
+      // Refresh the page or do nothing
+    } else {
+      navigation.navigate('SearchScreen');
+    }
   };
 
   const handleIcon3Press = () => {
-    navigation.navigate("Home");
-    console.log("Icon 3 pressed");
+
+    console.log("Icon 3 pressed - Home");
+
+    if (route.name === 'Home') {
+      console.log("This page is active - Home");
+      // Refresh the page or do nothing
+    } else {
+      navigation.navigate('Home');
+    }
+
   };
 
+
   const handleIcon4Press = () => {
-    console.log("Icon 4 pressed");
-    // Add your logic here
+    console.log("Icon 4 pressed - Notification");
+    
+    if (route.name === 'Notification') {
+      console.log("This page is active - Notification");
+      // Refresh the page or do nothing
+    } else {
+      navigation.navigate('Notification');
+    }
+
   };
 
   const handleIcon5Press = () => {
-    navigation.navigate("AppSettings");
-    console.log("Icon 5 pressed");
+    
+    console.log("Icon 3 pressed - AppSettings");
+
+    if (route.name === 'AppSettings') {
+      console.log("This page is active");
+      // Refresh the page or do nothing
+    } else {
+      navigation.navigate('AppSettings');
+    }
+
   };
 
   return (
@@ -102,7 +146,7 @@ const BottomNav = ({ notifications }) => {
                   }}
                 >
                   <Text style={{ color: "white", fontSize: 12 }}>
-                    {notifications}
+                    {navnotifications}
                   </Text>
                 </View>
               )}
