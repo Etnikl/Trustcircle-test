@@ -23,7 +23,7 @@ const AppSettings = ({ navigation }) => {
         title="App Settings"
         iconRight={null}
         onPressLeft={() => {
-          navigation.navigate("TermsConditions");
+          navigation.navigate("Home");
         }}
       />
       <SafeAreaView
