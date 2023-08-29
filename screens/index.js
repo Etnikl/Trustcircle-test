@@ -16,6 +16,17 @@ import QASupport from "./QASupport";
 import ContactUs from "./ContactUs";
 import LoginFormik from "./LoginFormik";
 import Notification from "./Notification";
+import CreateReferral from "./CreateReferral";
+import ReferralMatches from "./ReferralMatches";
+import MyReferrals from "./MyReferrals";
+import SentActiveReferral from "./SentActiveReferral";
+import SentPendingReferral from "./SentPendingReferral";
+import SentClosedReferral from "./SentClosedReferral";
+import RecivedActiveReferral from "./RecivedActiveReferral";
+import RecivedPendingReferral from "./RecivedPendingReferral";
+import RecivedClosedReferral from "./RecivedClosedReferral";
+import ReferralDetails from "./ReferralDetails";
+
 
 export {
     Home,
@@ -36,4 +47,14 @@ export {
     ContactUs,
     LoginFormik,
     Notification,
+    CreateReferral,
+    ReferralMatches,
+    MyReferrals,
+    SentActiveReferral,
+    SentPendingReferral,
+    SentClosedReferral,
+    RecivedActiveReferral,
+    RecivedPendingReferral,
+    RecivedClosedReferral,
+    ReferralDetails,
 }

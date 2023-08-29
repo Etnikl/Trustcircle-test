@@ -14,6 +14,7 @@ const COLORS = {
     homeNav: '#F2F4F6',
     btnLicense: '#65788D',
     supToggle: '#E2EAF3',
+    selectedBg: '#EEF2F5',
 }
 
 export default COLORS;

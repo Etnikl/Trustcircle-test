@@ -1,14 +1,17 @@
 [
   {
     "name": "Real Estate Broker",
-    "code": "REB"
+    "code": "REB",
+    "sub": ["Buyer", "Seller", "Renter"]
   },
   {
     "name": "Real Estate Agent",
-    "code": "REA"
+    "code": "REA",
+    "sub": ["Buyer", "Seller", "Renter"]
   },
   {
     "name": "Tullusum",
-    "code": "aa"
+    "code": "aa",
+    "sub": ["Tull1", "Tull2", "Tull3"]
   }
 ]

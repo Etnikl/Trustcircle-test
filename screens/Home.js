@@ -71,13 +71,15 @@ const Home = ({ navigation }) => {
             label={"Send New Referral"}
             leftSource={require("../assets/images/IconNewRef.png")}
             onPress={() => {
-              console.log("Button Pressed");
+              navigation.navigate("CreateReferral");
+              console.log("Clicked CreateReferral");
             }}
           />
           <NavButton
             label={"My Referrals"}
             leftSource={require("../assets/images/IconMyRef.png")}
             onPress={() => {
+              navigation.navigate("MyReferrals");
               console.log("Button Pressed");
             }}
           />

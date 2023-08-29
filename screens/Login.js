@@ -19,7 +19,7 @@ import {
   ButtonSecondary,
   IconButton,
 } from "../components/Button";
-import Checkbox from "../components/Checkbox";
+import {Checkbox} from "../components/Checkbox";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/Loadings/Loader";
 import ScreenLoading from "../components/Loadings/ScreenLoading"

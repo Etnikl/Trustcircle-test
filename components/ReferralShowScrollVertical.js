@@ -1,0 +1,155 @@
+import * as React from 'react';
+import { ScrollView, View, Text, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground } from "react-native";
+import COLORS from "../constants/colors";
+import { useNavigation } from '@react-navigation/native';
+
+
+const ReferralShowScrollVertical = ({ items, filterSign, filterType, onPress={}=()=>{} }) => {
+  if (!items) {
+    return null; // or return a loading spinner, or some other fallback component
+  }
+
+  let navigation = useNavigation();
+
+  const filteredItems = items.filter((item) => {
+    return (filterSign.toLowerCase() ? item.sign === filterSign : true) && 
+           (filterType.toLowerCase() ? item.type === filterType : true);
+  });
+
+  const lastIndex = items.length - 1; // Get the index of the last item
+
+  const itemWidth = screenWidth;
+
+  const getStatusStyle = (status) => {
+    switch (status.toLowerCase()) {
+      case 'active':
+        return styles.active;
+      case 'pending':
+        return styles.pending;
+      case 'canceled':
+        return styles.canceled;
+      default:
+        return {};
+    }
+  };
+
+  return (
+        <ScrollView
+          style={{
+              flex: 1,
+              flexDirection: "column",
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+        {filteredItems.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                navigation.navigate("ReferralDetails", { itemDetails: item });
+                console.log("Referral with id:: ", item.id);
+              }}
+            >
+              <View
+              style={[
+                  styles.itemContainer,
+                  { backgroundColor: item.backgroundColor || "white" },
+                  index === lastIndex ? styles.lastItem : {},
+              ]}
+              >
+              <View style={styles.titleRow}>
+                  <Text style={styles.title}>{item.headline}</Text>
+                  <Text style={styles.time}>{item.time}</Text>
+              </View>
+              <View style={styles.titleRow2}>
+                  <Text style={styles.label}>User: {item.user} |</Text> 
+                  <Text style={styles.labelStatus}>
+                      Status: <Text style={[styles.Status, getStatusStyle(item.status)]} >{item.status} <Text style={{color: COLORS.lightgrey}} >|</Text></Text>
+                  </Text>
+                  <Text style={styles.label}>State: {item.state} |</Text>
+              </View>
+              <View style={{overflow: 'hidden', paddingBottom: 15}} >
+                <Text style={styles.description}>{item.description}</Text>  
+              </View>
+              </View>
+            </TouchableOpacity>
+        ))}
+        </ScrollView>
+  );
+};
+
+let screenWidth = Dimensions.get("window").width;
+let screenHeight = Dimensions.get("window").height;
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    
+  },
+  itemContainer: {
+    width: screenWidth - 50, 
+    padding: 15,
+    overflow: 'hidden',
+    height: 140,
+    flex: 1,
+    marginHorizontal: 25,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: COLORS.lightgrey,
+    marginBottom: 15,
+  },
+  titleRow: {
+    flexDirection: "row",
+    alignItems: 'flex-end',
+    justifyContent: "space-between",
+  },
+  titleRow2: {
+    flexDirection: "row",
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
+    borderBottomWidth: 1,
+    paddingBottom: 2,
+    borderBottomColor: COLORS.lightgrey,
+  },
+  title: {
+    color: COLORS.primary,
+    fontWeight: '600',
+    fontSize: 18,
+  },
+  time: {
+    fontSize: 10,
+    color: COLORS.primary,
+  },
+  label: {
+    fontSize: 10,
+    marginTop: 5,
+    marginRight: 3,
+    color: COLORS.lightgrey,
+  },
+  labelStatus: {
+    fontSize: 10,
+    marginTop: 5,
+    marginRight: 3,
+    color: COLORS.lightgrey,
+  },
+  lastItem: {
+    marginBottom: 70,
+  },
+  Status: {
+    color: COLORS.primary,
+  },
+  active: {
+    color: 'green',
+  },
+  pending: {
+    color: 'orange',
+  },
+  canceled: {
+    color: 'red',
+  },
+  description: {
+    overflow: 'hidden',
+    fontSize: 12,
+    marginTop: 10,
+  },
+});
+
+export default ReferralShowScrollVertical;

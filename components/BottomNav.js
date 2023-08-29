@@ -46,13 +46,13 @@ const BottomNav = () => {
 
   const handleIcon3Press = () => {
 
-    console.log("Icon 3 pressed - Home");
+    console.log("Icon 3 pressed - MyReferrals");
 
-    if (route.name === 'Home') {
-      console.log("This page is active - Home");
+    if (route.name === 'MyReferrals') {
+      console.log("This page is active - MyReferrals");
       // Refresh the page or do nothing
     } else {
-      navigation.navigate('Home');
+      navigation.navigate('MyReferrals');
     }
 
   };
