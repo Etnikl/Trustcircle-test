@@ -6,7 +6,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import BottomNav from "../components/BottomNav";
 import HomeNav from "../components/HomeNav";
 import COLORS from "../constants/colors";
@@ -14,8 +14,11 @@ import { NavButton } from "../components/Button";
 import ScrollComponent from "../components/MoneyChart";
 import NewOppuScroll from "../components/NewOppuScroll";
 import { oppurtunity, walletItems } from '../assets/data/data'
+import { useSelector } from "react-redux";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+
+  const userDetails = useSelector((state) => state.user);
 
   const walletItems = [
     {
@@ -44,13 +47,14 @@ const Home = ({ navigation }) => {
     },
   ];
 
+  console.log("USER ID " + userDetails.id)
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <HomeNav name={"Etnik Latifi"} />
+      <HomeNav name={userDetails.name} />
       <SafeAreaView style={styles.container}>
         <View style={{ paddingHorizontal: 25, paddingVertical: 25 }}>
           <NavButton
@@ -102,7 +106,7 @@ const Home = ({ navigation }) => {
         <NewOppuScroll items={oppurtunity}  onPress={() => navigation.navigate("Oppurtunities")} />
         <ScrollComponent items={walletItems}/>
         <ScrollView style={styles.content}></ScrollView>
-        <BottomNav/>
+        <BottomNav />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );

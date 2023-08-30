@@ -371,7 +371,7 @@ const NavButtonPri = ({
         color: '#FFAA00',
       },
       canceled: {
-        color: '#FF0000',
+        color: COLORS.otherblue,
       },
   });
   

@@ -25,8 +25,15 @@ import Loader from "../components/Loadings/Loader";
 import ScreenLoading from "../components/Loadings/ScreenLoading"
 import usersData from '../assets/JSON/users.json'
 import { showToast } from "../components/ToastNotifications";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from "../assets/redux/userSlice";
+
 
 const Login = ({ navigation }) => {
+
+  const dispatch = useDispatch();
+
+
   const [inputs, setInputs] = React.useState({
     email: "",
     password: "",
@@ -69,10 +76,11 @@ const Login = ({ navigation }) => {
             inputs.password === storedUser.password
           ) {
             console.log(`Logged in as user with ID: ${storedUser.id}`);
+            dispatch(loginSuccess(storedUser));
             if (!rememberMe) {
               setInputs({ email: "", password: "" });   
             } 
-            navigation.navigate("Home");
+            navigation.navigate("Home", {userDetails: storedUser});
           } else if (
             inputs.email !== storedUser.email &&
             inputs.password === storedUser.password
@@ -155,7 +163,6 @@ const Login = ({ navigation }) => {
       await AsyncStorage.removeItem("rememberedUser");
     }
   };
-  
   
   // icone handel
 

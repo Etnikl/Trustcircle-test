@@ -6,23 +6,13 @@ import {
     ScrollView,
     KeyboardAvoidingView,
     Dimensions,
-    ImageBackground,
   } from "react-native";
   import React from "react";
   import COLORS from "../constants/colors";
   import TopNav from "../components/TopNav";
-  import Loader from "../components/Loadings/Loader";
   import ContainerLoad from "../components/Loadings/ContainerLoad";
   import BottomNav from "../components/BottomNav";
-  import NotificationShow from "../components/NotificationShow";
-  import { notifications } from "../assets/data/data-notification";
-  import occupations from '../assets/JSON/occupations.json';
   import { Button, ButtonLicense, ButtonPrimary, ButtonSecondary, NavButton, NavButtonPri, NavButtonRef } from "../components/Button";
-  import { CustomPicker, CustomPicker2 } from "../components/CostumePicker";
-  import Input from "../components/Input";
-  import NewOppuScrollVertical from "../components/NewOppuScrollVertical";
-  import { referralsdata } from "../assets/data/dataReferrals";
-  import ReferralShowScrollVertical from "../components/ReferralShowScrollVertical";
   
   const ReferralDetails = ({ navigation, route }) => {
   
@@ -68,209 +58,422 @@ import {
           style={{ flex: 1, height: "100%", backgroundColor: COLORS.warmew }}
         >
           <ContainerLoad visible={false} />
-          {itemDetails.sign.toLowerCase() === 'yes' && (
-            <View 
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: screenHeight - 200,
-                paddingTop: 25,
-                paddingHorizontal: 25
-              }} > 
-                <View>
-                <View style={styles.containerYes}>
-                    <View style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom: 15 ,
-                    }}>
-                    <Text style={styles.title}>{itemDetails.headline}</Text>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text>State: {itemDetails.state} |</Text>
-                            <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
-                            <Text> {itemDetails.type}</Text>
-                        </View>
-                            <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
-                        </View>    
-                    </View>
-                    <ScrollView>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Referrer</Text>
-                            <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Referral Type</Text>
-                            <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Name</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Phone Number</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Email Address</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Property Description</Text>
-                            <Text style={styles.subTitle} >{itemDetails.description}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Zoning Requirement</Text>
-                            <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Location</Text>
-                            <Text style={styles.subTitle} >{itemDetails.location}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Commission</Text>
-                            <Text style={styles.subTitle} >{itemDetails.fee}</Text>
-                        </View>
-                    </ScrollView>
+          {itemDetails.type.toLowerCase() === 'sent' && (
+            <View>
+              {itemDetails.sign.toLowerCase() === 'yes' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.containerYes}>
+                      <View style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <ScrollView>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referrer</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referral Type</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Name</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Phone Number</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Email Address</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Property Description</Text>
+                              <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Zoning Requirement</Text>
+                              <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Location</Text>
+                              <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Commission</Text>
+                              <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                          </View>
+                      </ScrollView>
+                  </View>
+                </View>
+                <View style={{marginBottom: 30}}> 
+                  <Button title="View Status" />
                 </View>
               </View>
-              <View style={{marginBottom: 30}}> 
-                <Button title="Update Status" />
+            )}
+            {itemDetails.sign.toLowerCase() === 'no' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.container}>
+                      <View style={{
+                          display: 'flex',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Referrer</Text>
+                          <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Referral Type</Text>
+                          <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Property Description</Text>
+                          <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Zoning Requirement</Text>
+                          <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Location</Text>
+                          <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Commission</Text>
+                          <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                      </View>
+                  </View>
+                  <View style={{marginTop: 10}}>
+                      <Text style={{fontSize: 12, textAlign: 'center', color: COLORS.darkgrey}}>Client information will not be shared until Referral is accepted!</Text>
+                  </View>
+                </View>
+                <View style={{marginBottom: 30}}> 
+                  <ButtonLicense title="Cancel Referral" />
+                  <Button title="Request Update" />
+                </View>
               </View>
+            )}
+            {itemDetails.sign.toLowerCase() === 'done' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.containerYes}>
+                      <View style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <ScrollView>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referrer</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referral Type</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Name</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Phone Number</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Email Address</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Property Description</Text>
+                              <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Zoning Requirement</Text>
+                              <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Location</Text>
+                              <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Commission</Text>
+                              <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                          </View>
+                      </ScrollView>
+                  </View>
+                </View>
+                <View style={{marginBottom: 30}}> 
+                  <Button title="View Status" />
+                </View>
+              </View>
+            )}
             </View>
           )}
-          {itemDetails.sign.toLowerCase() === 'no' && (
-            <View 
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: screenHeight - 200,
-                paddingTop: 25,
-                paddingHorizontal: 25
-              }} > 
-                <View>
-                <View style={styles.container}>
-                    <View style={{
-                        display: 'flex',
-                        marginBottom: 15 ,
-                    }}>
-                    <Text style={styles.title}>{itemDetails.headline}</Text>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text>State: {itemDetails.state} |</Text>
-                            <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
-                            <Text> {itemDetails.type}</Text>
-                        </View>
-                            <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
-                        </View>    
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Referrer</Text>
-                        <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Referral Type</Text>
-                        <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Property Description</Text>
-                        <Text style={styles.subTitle} >{itemDetails.description}</Text>
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Zoning Requirement</Text>
-                        <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Location</Text>
-                        <Text style={styles.subTitle} >{itemDetails.location}</Text>
-                    </View>
-                    <View style={styles.itemDisplay}>
-                        <Text style={styles.label}>Commission</Text>
-                        <Text style={styles.subTitle} >{itemDetails.fee}</Text>
-                    </View>
+          {itemDetails.type.toLowerCase() === 'recived' && (
+            <View>
+              {itemDetails.sign.toLowerCase() === 'yes' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.containerYes}>
+                      <View style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <ScrollView>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referrer</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referral Type</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Name</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Phone Number</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Email Address</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Property Description</Text>
+                              <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Zoning Requirement</Text>
+                              <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Location</Text>
+                              <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Commission</Text>
+                              <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                          </View>
+                      </ScrollView>
+                  </View>
                 </View>
-                <View style={{marginTop: 10}}>
-                    <Text style={{fontSize: 12, textAlign: 'center', color: COLORS.darkgrey}}>Client information will not be shared until Referral is accepted!</Text>
-                </View>
-              </View>
-              <View style={{marginBottom: 30}}> 
-                <ButtonLicense title="Reject" />
-                <Button title="Approve Referral" />
-              </View>
-            </View>
-          )}
-          {itemDetails.sign.toLowerCase() === 'done' && (
-            <View 
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                height: screenHeight - 200,
-                paddingTop: 25,
-                paddingHorizontal: 25
-              }} > 
-                <View>
-                <View style={styles.containerYes}>
-                    <View style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom: 15 ,
-                    }}>
-                    <Text style={styles.title}>{itemDetails.headline}</Text>
-                    <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Text>State: {itemDetails.state} |</Text>
-                            <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
-                            <Text> {itemDetails.type}</Text>
-                        </View>
-                            <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
-                        </View>    
-                    </View>
-                    <ScrollView>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Referrer</Text>
-                            <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Referral Type</Text>
-                            <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Name</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Phone Number</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Clients Email Address</Text>
-                            <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Property Description</Text>
-                            <Text style={styles.subTitle} >{itemDetails.description}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Zoning Requirement</Text>
-                            <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Location</Text>
-                            <Text style={styles.subTitle} >{itemDetails.location}</Text>
-                        </View>
-                        <View style={styles.itemDisplay}>
-                            <Text style={styles.label}>Commission</Text>
-                            <Text style={styles.subTitle} >{itemDetails.fee}</Text>
-                        </View>
-                    </ScrollView>
+                <View style={{marginBottom: 30}}> 
+                  <Button title="Update Status" />
                 </View>
               </View>
-              <View style={{marginBottom: 30}}> 
-                <Button title="View Status" />
+            )}
+            {itemDetails.sign.toLowerCase() === 'no' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.container}>
+                      <View style={{
+                          display: 'flex',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Referrer</Text>
+                          <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Referral Type</Text>
+                          <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Property Description</Text>
+                          <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Zoning Requirement</Text>
+                          <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Location</Text>
+                          <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                      </View>
+                      <View style={styles.itemDisplay}>
+                          <Text style={styles.label}>Commission</Text>
+                          <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                      </View>
+                  </View>
+                  <View style={{marginTop: 10}}>
+                      <Text style={{fontSize: 12, textAlign: 'center', color: COLORS.darkgrey}}>Client information will not be shared until Referral is accepted!</Text>
+                  </View>
+                </View>
+                <View style={{marginBottom: 30}}> 
+                  <ButtonLicense title="Reject" />
+                  <Button title="Approve Referral" />
+                </View>
               </View>
+            )}
+            {itemDetails.sign.toLowerCase() === 'done' && (
+              <View 
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  height: screenHeight - 200,
+                  paddingTop: 25,
+                  paddingHorizontal: 25
+                }} > 
+                  <View>
+                  <View style={styles.containerYes}>
+                      <View style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          marginBottom: 15 ,
+                      }}>
+                      <Text style={styles.title}>{itemDetails.headline}</Text>
+                      <View style={{flexDirection: 'row', justifyContent:'space-between', width: '100%', alignItems: 'flex-end'}}>
+                          <View style={{flexDirection: 'row'}}>
+                              <Text>State: {itemDetails.state} |</Text>
+                              <Text> Status: <Text style={[styles.Status, getStatusStyle(itemDetails.status)]}>{itemDetails.status}</Text> |</Text>
+                              <Text> {itemDetails.type}</Text>
+                          </View>
+                              <Text style={{fontSize: 8}} >{itemDetails.time}</Text>
+                          </View>    
+                      </View>
+                      <ScrollView>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referrer</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referrer}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Referral Type</Text>
+                              <Text style={styles.subTitle} >{itemDetails.referalType}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Name</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientFirstName + " " + itemDetails.clientLastName}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Phone Number</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientPhone}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Clients Email Address</Text>
+                              <Text style={styles.subTitle} >{itemDetails.clientEmailAdress}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Property Description</Text>
+                              <Text style={styles.subTitle} >{itemDetails.description}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Zoning Requirement</Text>
+                              <Text style={styles.subTitle} >{itemDetails.zoning}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Location</Text>
+                              <Text style={styles.subTitle} >{itemDetails.location}</Text>
+                          </View>
+                          <View style={styles.itemDisplay}>
+                              <Text style={styles.label}>Commission</Text>
+                              <Text style={styles.subTitle} >{itemDetails.fee}</Text>
+                          </View>
+                      </ScrollView>
+                  </View>
+                </View>
+                <View style={{marginBottom: 30}}> 
+                  <Button title="View Status" />
+                </View>
+              </View>
+            )}
             </View>
           )}
         </SafeAreaView>

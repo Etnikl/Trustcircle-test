@@ -3,12 +3,32 @@
     {
       "id": 1,
       "email": "test@example.com",
-      "password": "password123"
+      "password": "password123",
+      "firstName": "Test",
+      "lastName": "Example",
+      "phoneNumber": "+121556262654",
+      "occupation": "Real Estate Agent",
+      "occupationCategory": "VL",
+      "bio": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+      "state": "Michigan",
+      "companyName": "Test Company",
+      "brokerName": "Test Broker",
+      "businessArea": "Test Area"
     },
     {
       "id": 2,
       "email": "latifi.etnik@gmail.com",
-      "password": "etnik123"
+      "password": "etnik123",
+      "firstName": "Etnik",
+      "lastName": "Latifi",
+      "phoneNumber": "+121556262654",
+      "occupation": "Real Estate Agent",
+      "occupationCategory": "VL",
+      "bio": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+      "state": "Michigan",
+      "companyName": "Latifi Company",
+      "brokerName": "Labeat Broker",
+      "businessArea": "Kosovo Area"
     }
   ]
 }

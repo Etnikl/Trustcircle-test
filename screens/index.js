@@ -26,7 +26,7 @@ import RecivedActiveReferral from "./RecivedActiveReferral";
 import RecivedPendingReferral from "./RecivedPendingReferral";
 import RecivedClosedReferral from "./RecivedClosedReferral";
 import ReferralDetails from "./ReferralDetails";
-
+import ProfileDetails from "./ProfileDetails";
 
 export {
     Home,
@@ -57,4 +57,5 @@ export {
     RecivedPendingReferral,
     RecivedClosedReferral,
     ReferralDetails,
+    ProfileDetails,
 }

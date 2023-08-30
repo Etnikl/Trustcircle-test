@@ -46,7 +46,8 @@ const AppSettings = ({ navigation }) => {
                 label={"Profile Details"}
                 leftSource={require("../assets/images/IconUser.png")}
                 onPress={() => {
-                console.log("Button Pressed");
+                  navigation.navigate("ProfileDetails");
+                  console.log("Button Pressed");
                 }}
             />
             <NavButton
@@ -73,7 +74,7 @@ const AppSettings = ({ navigation }) => {
             />
         </View>
         <View style={{marginBottom: 80}} >
-            <Button title="Log Out" onPress={() => navigation.navigate("LoginFormik")} />
+            <Button title="Log Out" onPress={() => navigation.navigate("Login")} />
         </View>
       </View>
         <Loader visible={null} />
