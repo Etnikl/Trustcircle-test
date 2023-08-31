@@ -69,6 +69,7 @@ const AppSettings = ({ navigation }) => {
                 label={"Terms & Conditions"}
                 leftSource={require("../assets/images/IconTerms.png")}
                 onPress={() => {
+                  navigation.navigate("TermsConditions");
                 console.log("Button Pressed");
                 }}
             />

@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Keyboard,
+  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   SafeAreaView,
-  TouchableWithoutFeedback,
   Text,
   View,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { ButtonPrimary, Button } from "../components/Button";
 import Input from "../components/Input";
@@ -19,7 +20,7 @@ import ContainerLoad from "../components/Loadings/ContainerLoad";
 import usersData from '../assets/JSON/users.json';
 import { useSelector } from 'react-redux';
 
-const ChangePassword = ({ navigation }) => {
+const UpdateBio = ({ navigation }) => {
 
   const userDetails = useSelector((state) => state.user);
 
@@ -27,57 +28,39 @@ const ChangePassword = ({ navigation }) => {
     (user) => user.id === userDetails.id
   );
 
-  const [inputs, setInputs] = React.useState({
-    currpassword: "",
-    password: "",
-    confpassword: "",
+  const [inputs, setInputs] = useState({
+    bio: storedUser ? storedUser.bio : '',
   });
+
+  useEffect(() => {
+    if (storedUser) {
+      setInputs({
+        bio: storedUser.bio,
+      });
+    }
+  }, [storedUser]);
 
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
-
-  const realpassword = inputs.password;
 
   const validate = () => {
     let valid = true;
 
     Keyboard.dismiss();
-    if (!inputs.currpassword) {
-      handeleError("Please provide your password.", "currpassword");
-      valid = false;
-    } else if (inputs.currpassword != storedUser.password) {
-      handeleError("Your typed password doesn't match the actual password.", "currpassword");
-      valid = false;
-    }
-
-    if (!inputs.password) {
-      handeleError("Please provide your password.", "password");
-      valid = false;
-    } else if (inputs.password.length < 6) {
-      handeleError("Min password length of 6", "password");
-    }
-
-    if (!inputs.confpassword) {
-      handeleError("Please confirm your password.", "confpassword");
-      valid = false;
-    } else if (inputs.confpassword !== inputs.password) {
-      handeleError("Please enter a matching password.", "confpassword");
-      valid = false;
-    }
 
     if (valid) {
-      setNewPassword();
+      setNewUpdate();
     }
   };
 
-  const setNewPassword = () => {
+  const setNewUpdate = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
 
       try {
         navigation.goBack();
-        showToast("Success!", "Your password has been changed successfully.", "success");
+        showToast("Success!", "Personal biography was updated successfully!", "success");
       } catch (error) {
         Alert.alert("Error", "Something went wrong");
       }
@@ -93,11 +76,6 @@ const ChangePassword = ({ navigation }) => {
   };
 
   console.log(inputs);
-  console.log(realpassword);
-
-  const currpasswordRef = React.createRef();
-  const passwordRef = React.createRef();
-  const confpasswordRef = React.createRef();
 
   let screenHeight = Dimensions.get('window').height;
 
@@ -109,7 +87,7 @@ const ChangePassword = ({ navigation }) => {
     >
       <TopNav
         iconLeft="arrow-left"
-        title="Security"
+        title="Personal Information"
         iconRight={null}
         onPressLeft={() => {
           navigation.goBack();
@@ -141,8 +119,7 @@ const ChangePassword = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Change {"\n"}
-              Password
+              About Me
             </Text>
             <Text
               style={{
@@ -152,11 +129,14 @@ const ChangePassword = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Please enter your old password than{"\n"}
-              type your new password.{" "}
+              Update your bio to share more about yourself!{"\n"}
+              Add a brief description, interests, or anything you'd{"\n"}
+              like others to know. Let your profile reflect your{"\n"}
+              unique personality.{" "}
             </Text>
           </View>
         </View>
+        <ScrollView>
         <View
           style={{
             marginVertical: 30,
@@ -167,49 +147,24 @@ const ChangePassword = ({ navigation }) => {
           }}
         >
           <View>
-            <Input
-              ref={currpasswordRef}
-              placeholder="Current Password"
-              error={errors.currpassword}
-              onFocus={() => {
-                handeleError(null, "currpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "currpassword")}
+            <Input 
+              ref={null}
               returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current.focus()}
-              blurOnSubmit={false}
-            />
-            <Input
-              ref={passwordRef}
-              placeholder="New Password"
-              error={errors.password}
+              placeholder="BIO"
+              value={inputs.bio}
+              error={errors.bio}
               onFocus={() => {
-                handeleError(null, "password");
+                handeleError(null, "bio");
               }}
-              password
-              onChangeText={(text) => handelOnChange(text, "password")}
-              returnKeyType="next"
-              onSubmitEditing={() => confpasswordRef.current.focus()}
-              blurOnSubmit={false}
-            />
-            <Input
-              ref={confpasswordRef}
-              placeholder="Confirm New Password"
-              error={errors.confpassword}
-              onFocus={() => {
-                handeleError(null, "confpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "confpassword")}
-              returnKeyType="done"
-              blurOnSubmit={true}
-            />
+              onChangeText={(text) => handelOnChange(text, "bio")}
+              onSubmitEditing={null}
+              blurOnSubmit={false}/>
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button title="Update Password" onPress={validate} />
+            <Button title="Update Bio" onPress={validate} />
           </View>
         </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -217,4 +172,4 @@ const ChangePassword = ({ navigation }) => {
 };
 
 
-export default ChangePassword;
+export default UpdateBio;

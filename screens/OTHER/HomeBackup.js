@@ -6,27 +6,16 @@ import {
   ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
-import React, { useState } from "react";
-import BottomNav from "../components/BottomNav";
-import HomeNav from "../components/HomeNav";
-import COLORS from "../constants/colors";
-import { NavButton } from "../components/Button";
-import ScrollComponent from "../components/MoneyChart";
-import NewOppuScroll from "../components/NewOppuScroll";
-import { oppurtunity, walletItems } from '../assets/data/data'
-import { useSelector } from "react-redux";
-import usersData from '../assets/JSON/users.json';
+import React from "react";
+import BottomNav from "../../components/BottomNav";
+import HomeNav from "../../components/HomeNav";
+import COLORS from "../../constants/colors";
+import { NavButton } from "../../components/Button";
+import ScrollComponent from "../../components/MoneyChart";
+import NewOppuScroll from "../../components/NewOppuScroll";
+import { oppurtunity, walletItems } from '../../assets/data/data'
 
-
-const Home = ({ navigation, route }) => {
-
-  const userDetails = useSelector((state) => state.user);
-
-  const storedUser = usersData.users.find(
-    (user) => user.id === userDetails.id
-  );
-
-  const name = storedUser.firstName + " " + storedUser.lastName;
+const TermsConditions = ({ navigation }) => {
 
   const walletItems = [
     {
@@ -55,14 +44,13 @@ const Home = ({ navigation, route }) => {
     },
   ];
 
-  console.log("USER ID " + storedUser.id)
 
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <HomeNav name={name} />
+      <HomeNav name={"Etnik Latifi"} />
       <SafeAreaView style={styles.container}>
         <View style={{ paddingHorizontal: 25, paddingVertical: 25 }}>
           <NavButton
@@ -83,15 +71,13 @@ const Home = ({ navigation, route }) => {
             label={"Send New Referral"}
             leftSource={require("../assets/images/IconNewRef.png")}
             onPress={() => {
-              navigation.navigate("CreateReferral");
-              console.log("Clicked CreateReferral");
+              console.log("Button Pressed");
             }}
           />
           <NavButton
             label={"My Referrals"}
             leftSource={require("../assets/images/IconMyRef.png")}
             onPress={() => {
-              navigation.navigate("MyReferrals");
               console.log("Button Pressed");
             }}
           />
@@ -114,7 +100,7 @@ const Home = ({ navigation, route }) => {
         <NewOppuScroll items={oppurtunity}  onPress={() => navigation.navigate("Oppurtunities")} />
         <ScrollComponent items={walletItems}/>
         <ScrollView style={styles.content}></ScrollView>
-        <BottomNav />
+        <BottomNav notifications={null} />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -130,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default TermsConditions;

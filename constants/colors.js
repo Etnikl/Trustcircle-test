@@ -4,6 +4,7 @@ const COLORS = {
     black: '#222222',
     primary: '#3F73AE',
     secondary: '#0F2D4E',
+    secSecondary: '#11355D',
     lightgrey: '#CECECE',
     buttonGrey: '#F5F5F5',
     bottomNavButton: '#6B7C90',

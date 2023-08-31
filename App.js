@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail, QASupport, ContactUs, LoginFormik, Notification, CreateReferral, ReferralMatches, MyReferrals, SentActiveReferral, SentPendingReferral, SentClosedReferral, RecivedActiveReferral, RecivedPendingReferral, RecivedClosedReferral, ReferralDetails, ProfileDetails } from "./screens";
+import { Login, SignUp, SignUpProcess1, SignUpProcess2, SignUpProcess3, Welcome, TermsConditions, ChangePassword, ForgotPassword, Oppurtunities, AppSettings, Home, SearchScreen, VerifyEmail, QASupport, ContactUs, LoginFormik, Notification, CreateReferral, ReferralMatches, MyReferrals, SentActiveReferral, SentPendingReferral, SentClosedReferral, RecivedActiveReferral, RecivedPendingReferral, RecivedClosedReferral, ReferralDetails, ProfileDetails, UpdatePersonalInformation, UpdateBio, UpdateCompanyInfo } from "./screens";
 import CostumeToast, { showToast } from "./components/ToastNotifications";
 import { Provider } from "react-redux";
 import { store } from "./assets/redux/store";
@@ -119,7 +119,7 @@ export default function App() {
             component={ChangePassword}
             options={{
               headerShown: false,
-              gestureEnabled: false
+              gestureEnabled: true
             }}
           />
           <Stack.Screen 
@@ -239,7 +239,31 @@ export default function App() {
             component={ProfileDetails}
             options={{
               headerShown: false,
-              gestureEnabled: false
+              gestureEnabled: true
+            }}
+          />
+          <Stack.Screen 
+            name="UpdatePersonalInformation"
+            component={UpdatePersonalInformation}
+            options={{
+              headerShown: false,
+              gestureEnabled: true,
+            }}
+          />
+          <Stack.Screen 
+            name="UpdateBio"
+            component={UpdateBio}
+            options={{
+              headerShown: false,
+              gestureEnabled: true,
+            }}
+          />
+          <Stack.Screen 
+            name="UpdateCompanyInfo"
+            component={UpdateCompanyInfo}
+            options={{
+              headerShown: false,
+              gestureEnabled: true,
             }}
           />
           <Stack.Screen 
@@ -247,7 +271,7 @@ export default function App() {
             component={AppSettings}
             options={{
               headerShown: false,
-              gestureEnabled: false
+              gestureEnabled: false,
             }}
           />
         </Stack.Navigator>

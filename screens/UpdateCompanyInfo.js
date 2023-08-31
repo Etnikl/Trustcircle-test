@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Keyboard,
+  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   SafeAreaView,
-  TouchableWithoutFeedback,
   Text,
   View,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { ButtonPrimary, Button } from "../components/Button";
 import Input from "../components/Input";
@@ -19,7 +20,7 @@ import ContainerLoad from "../components/Loadings/ContainerLoad";
 import usersData from '../assets/JSON/users.json';
 import { useSelector } from 'react-redux';
 
-const ChangePassword = ({ navigation }) => {
+const UpdateCompanyInfo = ({ navigation }) => {
 
   const userDetails = useSelector((state) => state.user);
 
@@ -27,57 +28,45 @@ const ChangePassword = ({ navigation }) => {
     (user) => user.id === userDetails.id
   );
 
-  const [inputs, setInputs] = React.useState({
-    currpassword: "",
-    password: "",
-    confpassword: "",
+  const [inputs, setInputs] = useState({
+    companyname: storedUser ? storedUser.companyName : '',
+    brokername: storedUser ? storedUser.brokerName : '',
+    state: storedUser ? storedUser.state : '',
+    businessarea: storedUser ? storedUser.businessArea : '',
   });
+
+  useEffect(() => {
+    if (storedUser) {
+      setInputs({
+        companyname: storedUser.companyName,
+        brokername: storedUser.brokerName,
+        state: storedUser.brokerName,
+        businessarea: storedUser.businessArea,
+      });
+    }
+  }, [storedUser]);
 
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
-
-  const realpassword = inputs.password;
 
   const validate = () => {
     let valid = true;
 
     Keyboard.dismiss();
-    if (!inputs.currpassword) {
-      handeleError("Please provide your password.", "currpassword");
-      valid = false;
-    } else if (inputs.currpassword != storedUser.password) {
-      handeleError("Your typed password doesn't match the actual password.", "currpassword");
-      valid = false;
-    }
-
-    if (!inputs.password) {
-      handeleError("Please provide your password.", "password");
-      valid = false;
-    } else if (inputs.password.length < 6) {
-      handeleError("Min password length of 6", "password");
-    }
-
-    if (!inputs.confpassword) {
-      handeleError("Please confirm your password.", "confpassword");
-      valid = false;
-    } else if (inputs.confpassword !== inputs.password) {
-      handeleError("Please enter a matching password.", "confpassword");
-      valid = false;
-    }
 
     if (valid) {
-      setNewPassword();
+      setNewUpdate();
     }
   };
 
-  const setNewPassword = () => {
+  const setNewUpdate = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
 
       try {
         navigation.goBack();
-        showToast("Success!", "Your password has been changed successfully.", "success");
+        showToast("Success!", "Company Information was updated successfully!", "success");
       } catch (error) {
         Alert.alert("Error", "Something went wrong");
       }
@@ -93,11 +82,6 @@ const ChangePassword = ({ navigation }) => {
   };
 
   console.log(inputs);
-  console.log(realpassword);
-
-  const currpasswordRef = React.createRef();
-  const passwordRef = React.createRef();
-  const confpasswordRef = React.createRef();
 
   let screenHeight = Dimensions.get('window').height;
 
@@ -109,7 +93,7 @@ const ChangePassword = ({ navigation }) => {
     >
       <TopNav
         iconLeft="arrow-left"
-        title="Security"
+        title="Company Information"
         iconRight={null}
         onPressLeft={() => {
           navigation.goBack();
@@ -141,8 +125,8 @@ const ChangePassword = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Change {"\n"}
-              Password
+              Company{"\n"}
+              Information
             </Text>
             <Text
               style={{
@@ -152,11 +136,14 @@ const ChangePassword = ({ navigation }) => {
                 marginVertical: 5,
               }}
             >
-              Please enter your old password than{"\n"}
-              type your new password.{" "}
+              Securely update your company information {"\n"}
+              for accuracy and better service. Keep your details{"\n"}
+              up-to-date to ensure smooth communication{"\n"}
+              and support.{" "}
             </Text>
           </View>
         </View>
+        <ScrollView>
         <View
           style={{
             marginVertical: 30,
@@ -167,49 +154,63 @@ const ChangePassword = ({ navigation }) => {
           }}
         >
           <View>
-            <Input
-              ref={currpasswordRef}
-              placeholder="Current Password"
-              error={errors.currpassword}
-              onFocus={() => {
-                handeleError(null, "currpassword");
-              }}
-              password
-              onChangeText={(text) => handelOnChange(text, "currpassword")}
+            <Input 
+              ref={null}
               returnKeyType="next"
-              onSubmitEditing={() => passwordRef.current.focus()}
-              blurOnSubmit={false}
-            />
-            <Input
-              ref={passwordRef}
-              placeholder="New Password"
-              error={errors.password}
+              placeholder="Company Name"
+              value={inputs.companyname}
+              error={errors.companyname}
               onFocus={() => {
-                handeleError(null, "password");
+                handeleError(null, "companyname");
               }}
-              password
-              onChangeText={(text) => handelOnChange(text, "password")}
+              onChangeText={(text) => handelOnChange(text, "companyname")}
+              onSubmitEditing={null}
+              blurOnSubmit={false}/>
+
+              <Input 
+              ref={null}
               returnKeyType="next"
-              onSubmitEditing={() => confpasswordRef.current.focus()}
-              blurOnSubmit={false}
-            />
-            <Input
-              ref={confpasswordRef}
-              placeholder="Confirm New Password"
-              error={errors.confpassword}
+              placeholder="Broker Name"
+              value={inputs.brokername}
+              error={errors.brokername}
               onFocus={() => {
-                handeleError(null, "confpassword");
+                handeleError(null, "brokername");
               }}
-              password
-              onChangeText={(text) => handelOnChange(text, "confpassword")}
-              returnKeyType="done"
-              blurOnSubmit={true}
-            />
+              onChangeText={(text) => handelOnChange(text, "brokername")}
+              onSubmitEditing={null}
+              blurOnSubmit={false}/>
+
+              <Input 
+              ref={null}
+              returnKeyType="next"
+              placeholder="State licensed in"
+              value={inputs.state}
+              error={errors.state}
+              onFocus={() => {
+                handeleError(null, "state");
+              }}
+              onChangeText={(text) => handelOnChange(text, "state")}
+              onSubmitEditing={null}
+              blurOnSubmit={false}/>
+
+              <Input 
+              ref={null}
+              returnKeyType="next"
+              placeholder="Business Area"
+              value={inputs.businessarea}
+              error={errors.businessarea}
+              onFocus={() => {
+                handeleError(null, "businessarea");
+              }}
+              onChangeText={(text) => handelOnChange(text, "businessarea")}
+              onSubmitEditing={null}
+              blurOnSubmit={false}/>
           </View>
           <View style={{ paddingTop: 20, paddingBottom: 30 }}>
-            <Button title="Update Password" onPress={validate} />
+            <Button title="Update Bio" onPress={validate} />
           </View>
         </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
@@ -217,4 +218,4 @@ const ChangePassword = ({ navigation }) => {
 };
 
 
-export default ChangePassword;
+export default UpdateCompanyInfo;

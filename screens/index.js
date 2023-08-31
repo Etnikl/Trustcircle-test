@@ -27,6 +27,9 @@ import RecivedPendingReferral from "./RecivedPendingReferral";
 import RecivedClosedReferral from "./RecivedClosedReferral";
 import ReferralDetails from "./ReferralDetails";
 import ProfileDetails from "./ProfileDetails";
+import UpdatePersonalInformation from "./UpdatePersonalInformation";
+import UpdateBio from "./UpdateBio";
+import UpdateCompanyInfo from "./UpdateCompanyInfo";
 
 export {
     Home,
@@ -58,4 +61,7 @@ export {
     RecivedClosedReferral,
     ReferralDetails,
     ProfileDetails,
+    UpdatePersonalInformation,
+    UpdateBio,
+    UpdateCompanyInfo,
 }
